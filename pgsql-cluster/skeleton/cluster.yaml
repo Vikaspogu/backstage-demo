@@ -1,0 +1,14 @@
+---
+kind: Cluster
+apiVersion: postgresql.cnpg.io/v1
+metadata:
+  name: ${{values.name}}
+  namespace: ${{values.namespace}}
+spec:
+  instances: ${{values.instances}}
+  logLevel: info
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: ${{values.storage_size}}
+  walStorage:
+    size: ${{values.storage_size}}

@@ -1,0 +1,61 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: postgresql-cluster
+  title: Postgresql Cluster template
+  description: scaffolder v1beta3 template to create pgsql cluster on existing git repository
+spec:
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+        - namespace
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the component
+          ui:autofocus: true
+        namespace:
+          title: Namespace
+          type: string
+          description: Namespace of the postgresql cluster
+        instances:
+          title: Instances
+          type: integer
+          description: Number of instances required in the cluster
+          default: 3
+        storage_size:
+          title: Storage Size
+          type: string
+          description: Size of the storage (ex. 1Gi)
+          default: 1Gi
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          name: ${{parameters.name}}
