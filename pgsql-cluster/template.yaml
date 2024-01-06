@@ -6,6 +6,7 @@ metadata:
   title: Postgresql Cluster template
   description: scaffolder v1beta3 template to create pgsql cluster on existing git repository
 spec:
+  type: service
   parameters:
     - title: Fill in some steps
       required:
