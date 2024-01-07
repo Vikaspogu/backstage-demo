@@ -19,25 +19,23 @@ spec:
           items:
             type: string
             enum:
-              - production
-              - staging
-              - development
+              - prod
+              - stage
+              - dev
           uniqueItems: true
           ui:widget: checkboxes
-        name:
-          title: Name
-          type: string
-          description: Unique name of the component
-          ui:autofocus: true
         namespace:
           title: Namespace
           type: string
           description: Namespace of the postgresql cluster
+        create_namespace:
+          title: Checkbox boolean
+          type: boolean
         instances:
           title: Instances
           type: integer
           description: Number of instances required in the cluster
-          default: 3
+          default: 1
         storage_size:
           title: Storage Size
           type: string
@@ -70,27 +68,26 @@ spec:
       input:
         url: ./skeleton
         values:
-          name: ${{parameters.name}}
-          namespace: ${{parameters.namespace}}
+          name: ${{parameters.environment}}-cluster
+          namespace: ${{parameters.namespace}}-${{parameters.environment}}
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
+          create_namespace: ${{parameters.create_namespace}}
 
     - id: publish
       name: Create a pull request
-      action: publish:github:pull-request
+      action: publish:github
       input:
         allowedHosts: ["github.com"]
-        description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
-        branchName: pr-create-${{parameters.name}}-${{parameters.namespace}}
-        title: PR to create a new postgresql DB for ${{parameters.name}} in ${{parameters.namespace}}
+        gitCommitMessage: "Creating new DB cluster in ${{parameters.namespace}}"
 
     - id: register
       name: Register
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: "/catalog-info.yaml"
+        catalogInfoPath: "${{parameters.namespace}}/catalog-info.yaml"
 
   output:
     links:
