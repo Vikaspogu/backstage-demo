@@ -77,12 +77,11 @@ spec:
       name: Create a pull request
       action: publish:github:pull-request
       input:
-        allowedHosts: ["github.com"]
         repoUrl: ${{ parameters.repoUrl }}
         branchName: db-cluster-${{parameters.namespace}}-${{parameters.environment}}
         title: "Request new DB cluster in ${{parameters.namespace}}"
         description: "Requesting new DB cluster in ${{parameters.namespace}}"
-        reviewers: vikaspogu
+        reviewers: ["vikaspogu"]
 
     - id: register
       name: Register
