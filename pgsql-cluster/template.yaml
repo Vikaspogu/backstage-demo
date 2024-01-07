@@ -82,7 +82,8 @@ spec:
         allowedHosts: ["github.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
-        branchName: PR to create a new postgresql DB for $${{parameters.name}}
+        branchName: pr-create-${{parameters.name}}-${{parameters.namespace}}
+        title: PR to create a new postgresql DB for ${{parameters.name}} in ${{parameters.namespace}}
 
     - id: register
       name: Register
