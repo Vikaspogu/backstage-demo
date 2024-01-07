@@ -10,7 +10,6 @@ spec:
   parameters:
     - title: Fill in some steps
       required:
-        - name
         - namespace
       properties:
         environment:
