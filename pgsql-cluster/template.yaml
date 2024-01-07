@@ -13,6 +13,17 @@ spec:
         - name
         - namespace
       properties:
+        environment:
+          title: Select environments
+          type: array
+          items:
+            type: string
+            enum:
+              - production
+              - staging
+              - development
+          uniqueItems: true
+          ui:widget: checkboxes
         name:
           title: Name
           type: string
@@ -63,14 +74,15 @@ spec:
           namespace: ${{parameters.namespace}}
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
-          
+
     - id: publish
-      name: Publish
-      action: publish:github
+      name: Create a pull request
+      action: publish:github:pull-request
       input:
         allowedHosts: ["github.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
+        branchName: PR to create a new postgresql DB for $${{parameters.name}}
 
     - id: register
       name: Register
