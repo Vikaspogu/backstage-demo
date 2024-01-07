@@ -29,7 +29,7 @@ spec:
           type: string
           description: Namespace of the postgresql cluster
         create_namespace:
-          title: Checkbox boolean
+          title: Create a namespace
           type: boolean
         instances:
           title: Instances
