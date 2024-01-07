@@ -1,0 +1,7 @@
+{%- if values.createNamespace %}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${{values.namespace}}
+{%- endif %}
