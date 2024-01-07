@@ -1,3 +1,10 @@
+{%- if values.create_namespace %}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${{values.namespace}}
+{%- endif %}
 ---
 kind: Cluster
 apiVersion: postgresql.cnpg.io/v1

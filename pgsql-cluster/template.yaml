@@ -59,6 +59,10 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+            allowedOwners:
+              - vikaspogu
+            allowedRepos:
+              - namespace-components
             
   steps:
     - id: fetch-base
@@ -81,8 +85,6 @@ spec:
         branchName: db-cluster-${{parameters.namespace}}-${{parameters.environment}}
         title: "Request new DB cluster in ${{parameters.namespace}}"
         description: "Requesting new DB cluster in ${{parameters.namespace}}"
-        reviewers: ["vikaspogu"]
-
 
   output:
     links:
