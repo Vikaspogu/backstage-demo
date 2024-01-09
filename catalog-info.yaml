@@ -4,6 +4,7 @@ kind: Component
 metadata:
   name: namespace-components
   annotations:
+    argocd/app-name: namespace-components
     backstage.io/kubernetes-id: namespace-components
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: vikaspogu/namespace-components
