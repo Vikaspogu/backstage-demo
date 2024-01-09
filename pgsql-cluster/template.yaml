@@ -105,9 +105,9 @@ spec:
       name: Registering the Catalog Info Component
       action: catalog:register
       input:
-        catalogInfoUrl: https://github.com/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/${{ steps.publish.output.targetBranchName }}/${{parameters.environment}}/${{parameters.namespace}}-${{parameters.environment}}/catalog-info.yaml
+        catalogInfoUrl: https://github.com/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/db-cluster-${{parameters.namespace}}-${{parameters.environment}}/${{parameters.environment}}/${{parameters.namespace}}-${{parameters.environment}}/catalog-info.yaml
         optional: true
-        
+
   output:
     links:
       - title: Repository
