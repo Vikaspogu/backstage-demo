@@ -85,13 +85,6 @@ spec:
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
           create_namespace: ${{parameters.create_namespace}}
-
-    - id: catalogTemplate
-      name: Generating the Catalog Info Component
-      action: fetch:template
-      input:
-        url: ../catalog-info/
-        values:
           repoOwner: ${{ parameters.repoOwner }}
           repoName: ${{ parameters.repoName }}
           owner: ${{ parameters.owner }}
