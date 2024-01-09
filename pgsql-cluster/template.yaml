@@ -88,7 +88,7 @@ spec:
           repoOwner: ${{ parameters.repoOwner }}
           repoName: ${{ parameters.repoName }}
           owner: ${{ parameters.owner }}
-          applicationType: api
+          applicationType: resource
           description: ${{ parameters.description }}
           sourceControl: github.com
 
