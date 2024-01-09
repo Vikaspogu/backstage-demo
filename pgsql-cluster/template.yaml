@@ -85,12 +85,6 @@ spec:
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
           create_namespace: ${{parameters.create_namespace}}
-          repoOwner: ${{ parameters.repoOwner }}
-          repoName: ${{ parameters.repoName }}
-          owner: ${{ parameters.owner }}
-          applicationType: resource
-          description: ${{ parameters.description }}
-          sourceControl: github.com
 
     - id: publish
       name: Create a pull request
@@ -101,17 +95,7 @@ spec:
         title: "Request new DB cluster in ${{parameters.namespace}}"
         description: "Requesting new DB cluster in ${{parameters.namespace}}"
 
-    - id: register
-      name: Registering the Catalog Info Component
-      action: catalog:register
-      input:
-        catalogInfoUrl: https://github.com/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/db-cluster-${{parameters.namespace}}-${{parameters.environment}}/${{parameters.environment}}/${{parameters.namespace}}-${{parameters.environment}}/catalog-info.yaml
-        optional: true
-
   output:
     links:
       - title: Repository
         url: ${{ steps.publish.output.remoteUrl }}
-      - title: Open the Catalog Info Component
-        icon: catalog
-        entityRef: ${{ steps.register.output.entityRef }}
