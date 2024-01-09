@@ -80,7 +80,7 @@ spec:
         url: ./skeleton
         values:
           environment: ${{parameters.environment}}
-          name: ${{parameters.environment}}-cluster
+          name: ${{parameters.namespace}}-${{parameters.environment}}-cluster
           namespace: ${{parameters.namespace}}-${{parameters.environment}}
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
