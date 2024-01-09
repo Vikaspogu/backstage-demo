@@ -5,15 +5,19 @@ metadata:
   name: postgresql-cluster
   title: Postgresql Cluster template
   description: scaffolder v1beta3 template to create pgsql cluster on existing git repository
+  tags:
+    - database
+    - postgresql
 spec:
+  owner: group:ops
   type: service
   parameters:
-    - title: Fill in some steps
+    - title: Postgresql Definition
       required:
         - namespace
       properties:
         environment:
-          title: Select environments
+          title: Select environment
           type: array
           items:
             type: string
@@ -48,21 +52,25 @@ spec:
           ui:options:
             catalogFilter:
               kind: Group
-    - title: Choose a location
+    - title: Provide information about the GitHub location
       required:
-        - repoUrl
+        - repoOwner
+        - repoName
+        - owner
+        - system
       properties:
-        repoUrl:
-          title: Repository Location
+        repoOwner:
+          title: Repository Owner
           type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
-            allowedOwners:
-              - vikaspogu
-            allowedRepos:
-              - namespace-components
+          default: vikaspogu
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+        repoName:
+          title: Repository Name
+          type: string
+          default: namespace-components
             
   steps:
     - id: fetch-base
@@ -78,16 +86,40 @@ spec:
           storage_size: ${{parameters.storage_size}}
           create_namespace: ${{parameters.create_namespace}}
 
+    - id: catalogTemplate
+      name: Generating the Catalog Info Component
+      action: fetch:template
+      input:
+        url: ../catalog-info/
+        values:
+          repoOwner: ${{ parameters.repoOwner }}
+          repoName: ${{ parameters.repoName }}
+          owner: ${{ parameters.owner }}
+          applicationType: api
+          description: ${{ parameters.description }}
+          sourceControl: github.com
+
     - id: publish
       name: Create a pull request
       action: publish:github:pull-request
       input:
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{ parameters.repoName }}
         branchName: db-cluster-${{parameters.namespace}}-${{parameters.environment}}
         title: "Request new DB cluster in ${{parameters.namespace}}"
         description: "Requesting new DB cluster in ${{parameters.namespace}}"
+
+    - id: register
+      name: Registering the Catalog Info Component
+      action: catalog:register
+      input:
+        repoContentsUrl:  https://github.com/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/${{ steps.publish.output.targetBranchName }}
+        catalogInfoPath: ${{parameters.environment}}/${{parameters.environment}}-cluster/catalog-info.yaml
+        optional: true
 
   output:
     links:
       - title: Repository
         url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open the Catalog Info Component
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
