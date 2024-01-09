@@ -19,13 +19,15 @@ spec:
         environment:
           title: Select environment
           type: string
-          items:
-            type: string
-            enum:
-              - prod
-              - stage
-              - dev
-          uniqueItems: true
+          default: dev
+          enum:
+            - prod
+            - stage
+            - dev
+          enumNames:
+            - 'production (prod)'
+            - 'staging (stage)'
+            - 'development (dev)'
         namespace:
           title: Namespace
           type: string
@@ -111,7 +113,7 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl:  https://github.com/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/${{ steps.publish.output.targetBranchName }}
-        catalogInfoPath: ${{parameters.environment}}/${{parameters.environment}}-cluster/catalog-info.yaml
+        catalogInfoPath: ${{parameters.environment}}/${{parameters.namespace}}-${{parameters.environment}}/catalog-info.yaml
         optional: true
 
   output:
