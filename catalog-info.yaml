@@ -6,6 +6,7 @@ metadata:
   annotations:
     argocd/app-name: namespace-components
     backstage.io/kubernetes-id: namespace-components
+    ackstage.io/kubernetes-namespace: openshift-gitops
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: vikaspogu/namespace-components
 spec:
