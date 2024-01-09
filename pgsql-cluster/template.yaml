@@ -18,7 +18,7 @@ spec:
       properties:
         environment:
           title: Select environment
-          type: array
+          type: string
           items:
             type: string
             enum:
@@ -57,7 +57,6 @@ spec:
         - repoOwner
         - repoName
         - owner
-        - system
       properties:
         repoOwner:
           title: Repository Owner
