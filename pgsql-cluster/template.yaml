@@ -26,7 +26,6 @@ spec:
               - stage
               - dev
           uniqueItems: true
-          ui:widget: checkboxes
         namespace:
           title: Namespace
           type: string
