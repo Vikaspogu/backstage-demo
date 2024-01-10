@@ -98,6 +98,10 @@ spec:
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
           create_namespace: ${{parameters.create_namespace}}
+          repoOwner: ${{ parameters.repoOwner }}
+          repoName: ${{ parameters.repoName }}
+          owner: ${{ parameters.owner }}
+          applicationType: resources
 
     - id: publish
       name: Create a pull request
