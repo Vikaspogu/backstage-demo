@@ -12,13 +12,13 @@ metadata:
   {%- endif %}
   annotations:
     argocd.argoproj.io/synchronization: Exclude
-    {%- if values.hostUrl %}
-    argocd/app-name: ${{ values.name }}
-    {%- endif %}
+    argocd/app-name: cluster-components
+    argocd/namespace: openshift-gitops
     {%- if values.ci == "../../scaffolder-skeletons/tekton-skeleton/" %}
     tektonci/build-namespace: ${{ values.namespace }}
     {%- endif %}
     backstage.io/kubernetes-id: ${{ values.name }}
+    backstage.io/kubernetes-namespace: ${{ values.namespace }}
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: ${{ values.githubOrg }}/${{ values.repoName }}
 spec:
