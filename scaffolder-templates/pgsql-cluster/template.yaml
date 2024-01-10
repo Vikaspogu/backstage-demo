@@ -28,6 +28,18 @@ spec:
             - 'production (prod)'
             - 'staging (stage)'
             - 'development (dev)'
+        cluster:
+          title: Select openshift cluster
+          type: string
+          default: pxm-acm
+          enum:
+            - pxm-acm
+            - dev
+            - prod
+          enumNames:
+            - 'acm (pxm-acm)'
+            - 'development (dev)'
+            - 'production (prod)'
         namespace:
           title: Namespace
           type: string
@@ -70,7 +82,7 @@ spec:
         repoName:
           title: Repository Name
           type: string
-          default: namespace-components
+          default: cluster-components
             
   steps:
     - id: fetch-base
@@ -79,8 +91,9 @@ spec:
       input:
         url: ./skeleton
         values:
+          cluster: ${{parameters.cluster}}
           environment: ${{parameters.environment}}
-          name: ${{parameters.namespace}}-${{parameters.environment}}-cluster
+          name: ${{parameters.namespace}}-${{parameters.environment}}-db
           namespace: ${{parameters.namespace}}-${{parameters.environment}}
           instances: ${{parameters.instances}}
           storage_size: ${{parameters.storage_size}}
@@ -91,9 +104,9 @@ spec:
       action: publish:github:pull-request
       input:
         repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{ parameters.repoName }}
-        branchName: db-cluster-${{parameters.namespace}}-${{parameters.environment}}
-        title: "Request new DB cluster in ${{parameters.namespace}}"
-        description: "Requesting new DB cluster in ${{parameters.namespace}}"
+        branchName: db-${{parameters.namespace}}-${{parameters.environment}}
+        title: "Request new pgsql database in ${{parameters.namespace}}"
+        description: "Requesting new pgsql database in ${{parameters.namespace}}"
 
   output:
     links:
