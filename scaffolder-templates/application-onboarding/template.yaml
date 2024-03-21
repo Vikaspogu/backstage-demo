@@ -116,7 +116,7 @@ spec:
       input:
         repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{
           parameters.repoName }}
-        number: ${{ steps.publish.output.pullRequestNumber }}
+        number: ${{ steps.publish-to-platform.output.pullRequestNumber }}
         labels:
           - onboarding
           - created-by-backstage
@@ -152,7 +152,7 @@ spec:
       input:
         repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{
           parameters.repoName }}
-        number: ${{ steps.publish.output.pullRequestNumber }}
+        number: ${{ steps.publish-tenant-repo.output.pullRequestNumber }}
         labels:
           - onboarding
           - created-by-backstage
