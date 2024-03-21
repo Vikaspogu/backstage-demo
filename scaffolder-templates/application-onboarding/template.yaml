@@ -22,16 +22,16 @@ spec:
   parameters:
     - title: Onboarding Application
       required:
-        - environment
+        - environments
         - cluster
         - teamName
       properties:
-        environment:
+        environments:
           type: array
           title: Environments
           description: Select the environments to create
-          minItems: 1
-          maxItems: 2
+          uniqueItems: true
+          ui:widget: checkboxes
           items:
             type: string
             enum:
@@ -57,6 +57,9 @@ spec:
           title: Name of your team
           type: string
           description: Team name; no spaces are allowed
+          pattern: ^[a-z-]*$
+          maxLength: 45
+          ui:help: 'Hint: Lowercase and only hyphens(-) allowed'
         owner:
           title: Owner
           type: string
@@ -87,7 +90,7 @@ spec:
     - id: fetchPlatformSkeleton
       name: Fetch Base
       action: fetch:template
-      each: ${{parameters.environment}}
+      each: ${{parameters.environments}}
       input:
         url: ./skeleton/platform
         values:
@@ -124,7 +127,7 @@ spec:
     - id: fetchBaseTenantTemplates
       name: Fetch Base
       action: fetch:template
-      each:  ${{parameters.environment}}
+      each: ${{parameters.environments}}
       input:
         url: ./skeleton/tenant/
         values:
