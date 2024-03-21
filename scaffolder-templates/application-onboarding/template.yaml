@@ -24,7 +24,7 @@ spec:
       required:
         - environment
         - cluster
-        - team-name
+        - teamName
       properties:
         environment:
           type: array
