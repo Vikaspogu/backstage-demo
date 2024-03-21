@@ -97,6 +97,21 @@ spec:
           repoName: ${{ parameters.repoName }}
           owner: ${{ parameters.owner }}
           applicationType: resources
+    - id: files
+      name: Files
+      description: Select files to create
+      form: environment
+      onDone:
+        - iterate: $each.environment
+          as: environment
+          steps:
+            - id: createFile
+              name: Create File
+              description: Create a file with the specified content
+              action: plugin:template:file
+              input:
+                path: "{{ file }}.txt"
+                content: "This is the content of {{ file }}"
     - id: publishToPlatform
       name: Create a pull request
       action: publish:github:pull-request
