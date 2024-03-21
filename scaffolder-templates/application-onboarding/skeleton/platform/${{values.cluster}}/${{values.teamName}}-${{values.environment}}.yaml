@@ -1,7 +1,5 @@
-{%- for env in values.environment %}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ${{env}}
-{% endfor -%}
+  name: ${{values.teamName}}-${{values.environment}}
