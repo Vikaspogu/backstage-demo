@@ -105,6 +105,7 @@ spec:
           parameters.repoName }}
         branchName: onboarding/${{parameters.team-name}}
         title: Onboarding of new ${{parameters.team-name}}
+        update: true
         description: |
           ### Requesting Onboarding of new ${{parameters.team-name}}
 
