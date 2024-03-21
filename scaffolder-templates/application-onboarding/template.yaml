@@ -119,8 +119,6 @@ spec:
         labels:
           - onboarding
           - created-by-backstage
-          - ${{ parameters.environment }}
-          - ${{parameters.namespace}}
   output:
     links:
       - title: Pull request link
