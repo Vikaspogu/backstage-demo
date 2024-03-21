@@ -87,11 +87,12 @@ spec:
     - id: fetchPlatformSkeleton
       name: Fetch Base
       action: fetch:template
+      each: ${{parameters.environment}}
       input:
         url: ./skeleton/platform
         values:
           cluster: ${{parameters.cluster}}
-          environment: ${{parameters.environment}}
+          environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
           repoOwner: ${{ parameters.repoOwner }}
           repoName: ${{ parameters.repoName }}
