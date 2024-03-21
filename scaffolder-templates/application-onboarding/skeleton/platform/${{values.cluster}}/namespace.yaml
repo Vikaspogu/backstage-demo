@@ -1,7 +1,7 @@
-{%- range env := values.environment %}
+{%- for env in values.environment %}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ${{env}}
+  name: {{env}}
 {%- end %}
