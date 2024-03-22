@@ -135,6 +135,7 @@ spec:
       action: fetch:template
       each: ${{parameters.environments}}
       input:
+        replace: true
         url: ./skeleton/tenant/
         values:
           cluster: kustomize/cluster-overlays/${{parameters.cluster}}
