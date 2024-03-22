@@ -102,7 +102,8 @@ spec:
       input:
         url: ./skeleton/platform
         values:
-          cluster: kustomize/cluster-overlays/${{parameters.cluster}}
+          cluster: ${{parameters.cluster}}
+          fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
           applicationType: resources
