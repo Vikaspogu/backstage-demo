@@ -1,0 +1,33 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ${{values.teamName}}-application-set
+  namespace: ${{values.teamName}}-shared
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/idp-team/team-a-gitops
+        revision: HEAD
+        files:
+          - path: "${{values.cluster}}/${{values.teamName}}/*.yaml"
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  template:
+    metadata:
+      name: '${{values.teamName}}-{{.path.filename | splitList "-" | first }}'
+    spec:
+      destination:
+        server: 'https://kubernetes.default.svc'
+      project: default
+      sources:
+        - chart: common
+          helm:
+            valueFiles:
+              - '$values/{{ .path.path }}/{{.path.filename}}'
+          repoURL: 'https://vikaspogu.dev/helm-charts/'
+          targetRevision: 1.10.0
+        - ref: values
+          repoURL: 'https://github.com/idp-team/team-a-gitops'
+          targetRevision: main
