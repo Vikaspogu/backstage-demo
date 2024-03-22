@@ -117,6 +117,8 @@ spec:
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
+        reviewers:
+          - vikaspogu
         description: |
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
@@ -153,6 +155,8 @@ spec:
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
+        reviewers:
+          - vikaspogu
         description: |
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
@@ -161,8 +165,7 @@ spec:
       name: Add labels to PR to tenant repository
       action: github:issues:label
       input:
-        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=${{
-          parameters.repoName }}
+        repoUrl: github.com?owner=idp-team&repo=team-a-gitops
         number: ${{ steps.publishToTenant.output.pullRequestNumber }}
         labels:
           - onboarding
