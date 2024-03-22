@@ -129,16 +129,21 @@ spec:
         labels:
           - onboarding
           - created-by-backstage
+    - action: fs:delete
+      id: cleanupPlatformTemplates
+      name: Cleanup Platform Templates
+      input:
+        files:
+          - ./skeleton
 
     - id: fetchBaseTenantTemplates
       name: Fetch base templates for tenant repo
       action: fetch:template
       each: ${{parameters.environments}}
       input:
-        replace: true
         url: ./skeleton/tenant/
         values:
-          cluster: kustomize/cluster-overlays/${{parameters.cluster}}
+          cluster: ${{parameters.cluster}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
           applicationType: resources
