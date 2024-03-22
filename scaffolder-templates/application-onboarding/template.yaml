@@ -114,8 +114,6 @@ spec:
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
-        reviewers:
-          - vikaspogu
         description: |
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
@@ -155,8 +153,6 @@ spec:
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
-        reviewers:
-          - vikaspogu
         description: |
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
