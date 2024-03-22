@@ -134,7 +134,7 @@ spec:
       name: Cleanup Platform Templates
       input:
         files:
-          - ./skeleton
+          - kustomize/cluster-overlays/${{parameters.cluster}}
 
     - id: fetchBaseTenantTemplates
       name: Fetch base templates for tenant repo
