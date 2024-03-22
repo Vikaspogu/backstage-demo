@@ -102,12 +102,9 @@ spec:
       input:
         url: ./skeleton/platform
         values:
-          cluster: ${{parameters.cluster}}
+          cluster: kustomize/cluster-overlays/${{parameters.cluster}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
-          repoOwner: ${{ parameters.repoOwner }}
-          repoName: ${{ parameters.repoName }}
-          owner: ${{ parameters.owner }}
           applicationType: resources
     - id: publishToPlatform
       name: Create a pull request to platform repository
@@ -143,9 +140,6 @@ spec:
           cluster: kustomize/cluster-overlays/${{parameters.cluster}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
-          repoOwner: ${{ parameters.repoOwner }}
-          repoName: ${{ parameters.repoName }}
-          owner: ${{ parameters.owner }}
           applicationType: resources
     - id: publishToTenant
       name: Create a pull request to tenant repository
