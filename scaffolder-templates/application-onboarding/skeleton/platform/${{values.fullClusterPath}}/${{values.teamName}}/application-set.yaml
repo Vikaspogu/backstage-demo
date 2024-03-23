@@ -4,6 +4,8 @@ kind: ApplicationSet
 metadata:
   name: ${{values.teamName}}-application-set
   namespace: ${{values.teamName}}-shared
+  labels:
+    ${{values.teamName}}-argocd: ${{values.teamName}}-appset
 spec:
   generators:
     - git:
@@ -17,17 +19,20 @@ spec:
   template:
     metadata:
       name: '${{values.teamName}}-{{.path.filename | splitList "-" | first }}'
+    labels:
+      ${{values.teamName}}-argocd: ${{values.teamName}}-{{.path.filename | splitList "-" | first }}
     spec:
       destination:
         server: 'https://kubernetes.default.svc'
+        namespace: ${{values.teamName}}-shared
       project: default
       sources:
-        - chart: common
+        - chart: hello-world
           helm:
             valueFiles:
               - '$values/{{ .path.path }}/{{.path.filename}}'
-          repoURL: 'https://vikaspogu.dev/helm-charts/'
-          targetRevision: 1.10.0
+          repoURL: 'https://helm.github.io/examples'
+          targetRevision: 0.1.0
         - ref: values
           repoURL: 'https://github.com/idp-team/team-a-gitops'
           targetRevision: main
