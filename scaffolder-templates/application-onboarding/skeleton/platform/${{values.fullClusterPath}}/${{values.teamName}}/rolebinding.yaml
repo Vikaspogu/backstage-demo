@@ -9,7 +9,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ${{values.teamName}}-gitops-argocd-application-controller
-    namespace: ${{values.teamName}}-shared
+    namespace: ${{values.teamName}}-gitops
   - kind: ServiceAccount
     name: ${{values.teamName}}-gitops-argocd-server
-    namespace: ${{values.teamName}}-shared
+    namespace: ${{values.teamName}}-gitops

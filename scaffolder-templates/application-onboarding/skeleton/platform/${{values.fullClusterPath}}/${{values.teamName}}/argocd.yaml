@@ -3,7 +3,7 @@ kind: ArgoCD
 apiVersion: argoproj.io/v1beta1
 metadata:
   name: ${{values.teamName}}-gitops
-  namespace: ${{values.teamName}}-shared
+  namespace: ${{values.teamName}}-gitops
 spec:
   resourceTrackingMethod: annotation
   kustomizeBuildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm

@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: ${{values.teamName}}-${{values.environment}}
   labels:
-    argocd.argoproj.io/managed-by: ${{values.teamName}}-gitops
+    argocd.argoproj.io/managed-by: ${{values.teamName}}-gitops //namespace of argocd instance

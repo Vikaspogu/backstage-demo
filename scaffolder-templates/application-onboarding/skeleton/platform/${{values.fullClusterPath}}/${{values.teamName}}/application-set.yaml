@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: ${{values.teamName}}-application-set
-  namespace: ${{values.teamName}}-shared
+  namespace: ${{values.teamName}}-gitops
   labels:
     ${{values.teamName}}-argocd: ${{values.teamName}}-appset
 spec:
