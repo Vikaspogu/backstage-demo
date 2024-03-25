@@ -9,8 +9,8 @@ spec:
   kustomizeBuildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm
   sourceNamespaces:
 {%- for env in values.allEnvironments %}
-    - ${{values.teamName}}-{{env}}
-{% endfor -%}
+    - ${{values.teamName}}-${{env}}
+{%- endfor -%}
   controller:
     resources:
       limits:
