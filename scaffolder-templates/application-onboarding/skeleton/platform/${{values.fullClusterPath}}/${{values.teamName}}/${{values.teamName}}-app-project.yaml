@@ -11,11 +11,16 @@ spec:
     - https://github.com/idp-team/team-a-gitops.git
     - https://helm.github.io/examples
   destinations:
-    - name: ${{values.teamName}}-${{values.environment}}
-      namespace: ${{values.teamName}}-${{values.environment}}
+
+{%- for env in ${{values.allEnvironments}} %}
+    - name: ${{values.teamName}}-{{env}}
+      namespace: ${{values.teamName}}-{{env}}
       server: 'https://kubernetes.default.svc'
+{% endfor -%}
   orphanedResources:
     warn: false
   permitOnlyProjectScopedClusters: false
   sourceNamespaces:
-    - ${{values.teamName}}-${{values.environment}}
+{%- for env in ${{values.allEnvironments}} %}
+    - ${{values.teamName}}-{{env}}
+{% endfor -%}
