@@ -11,7 +11,7 @@ spec:
     - https://github.com/idp-team/team-a-gitops.git
     - https://helm.github.io/examples
   destinations:
-{%- for env in ${{values.allEnvironments}} %}
+{%- for env in {{values.allEnvironments}} %}
     - name: ${{values.teamName}}-{{env}}
       namespace: ${{values.teamName}}-{{env}}
       server: 'https://kubernetes.default.svc'
@@ -20,6 +20,6 @@ spec:
     warn: false
   permitOnlyProjectScopedClusters: false
   sourceNamespaces:
-{%- for env in ${{values.allEnvironments}} %}
+{%- for env in {{values.allEnvironments}} %}
     - ${{values.teamName}}-{{env}}
 {% endfor -%}
