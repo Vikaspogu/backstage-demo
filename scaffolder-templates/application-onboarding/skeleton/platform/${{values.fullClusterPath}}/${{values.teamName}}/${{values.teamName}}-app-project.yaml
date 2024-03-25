@@ -15,11 +15,11 @@ spec:
     - name: ${{values.teamName}}-${{env}}
       namespace: ${{values.teamName}}-${{env}}
       server: 'https://kubernetes.default.svc'
-{%- endfor -%}
+{%- endfor %}
   orphanedResources:
     warn: false
   permitOnlyProjectScopedClusters: false
   sourceNamespaces:
 {%- for env in values.allEnvironments %}
     - ${{values.teamName}}-${{env}}
-{%- endfor -%}
+{%- endfor %}

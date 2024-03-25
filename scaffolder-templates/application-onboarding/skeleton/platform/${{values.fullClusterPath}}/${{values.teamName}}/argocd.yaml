@@ -10,7 +10,7 @@ spec:
   sourceNamespaces:
 {%- for env in values.allEnvironments %}
     - ${{values.teamName}}-${{env}}
-{%- endfor -%}
+{% endfor -%}
   controller:
     resources:
       limits:
