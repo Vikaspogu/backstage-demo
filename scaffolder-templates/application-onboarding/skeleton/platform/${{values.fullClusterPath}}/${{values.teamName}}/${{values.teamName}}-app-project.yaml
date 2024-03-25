@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ${{values.teamName}}
+  namespace: ${{values.teamName}}-shared
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: ${{values.teamName}}
+  sourceRepos:
+    - https://github.com/idp-team/team-a-gitops.git
+    - https://helm.github.io/examples
+  destinations:
+    - name: ${{values.teamName}}-${{values.environment}}
+      namespace: ${{values.teamName}}-${{values.environment}}
+      server: 'https://kubernetes.default.svc'
+  orphanedResources:
+    warn: false
+  permitOnlyProjectScopedClusters: false
+  sourceNamespaces:
+    - ${{values.teamName}}-${{values.environment}}

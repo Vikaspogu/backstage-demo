@@ -2,9 +2,13 @@
 kind: ArgoCD
 apiVersion: argoproj.io/v1beta1
 metadata:
-  name: ${{values.teamName}}-argocd
+  name: ${{values.teamName}}-gitops
   namespace: ${{values.teamName}}-shared
 spec:
+  resourceTrackingMethod: annotation
+  kustomizeBuildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm
+  sourceNamespaces:
+    - team-a-dev
   controller:
     resources:
       limits:
@@ -13,7 +17,7 @@ spec:
       requests:
         cpu: 250m
         memory: 1024Mi
-  applicationInstanceLabelKey: ${{values.teamName}}-argocd
+  applicationInstanceLabelKey: ${{values.teamName}}-gitops
   applicationSet:
     resources:
       limits:
@@ -79,14 +83,3 @@ spec:
       tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
-  sso:
-    dex:
-      openShiftOAuth: true
-      resources:
-        limits:
-          cpu: 500m
-          memory: 256Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
-    provider: dex
