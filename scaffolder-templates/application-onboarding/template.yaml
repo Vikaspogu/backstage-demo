@@ -229,8 +229,8 @@ spec:
           - onboarding
           - created-by-developer-hub
     - action: fs:delete
-      id: cleanupPlatformTemplates
-      name: Cleanup Platform Templates
+      id: cleanupTenantTemplates
+      name: Cleanup tenant Templates
       input:
         files:
           - ${{parameters.cluster}}
