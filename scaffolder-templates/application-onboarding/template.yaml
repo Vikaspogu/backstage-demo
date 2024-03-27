@@ -246,7 +246,7 @@ spec:
           allEnvironments: ${{parameters.environments}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
-          description: ${{parameters.teamName}}: ${{parameters.appName}}
+          description: '${{parameters.teamName}}: ${{parameters.appName}}'
           appName: ${{parameters.appName}}
           runTimes: ${{parameters.runTimes}}
           runTimeVersion: ${{parameters.runTimeVersion}}
