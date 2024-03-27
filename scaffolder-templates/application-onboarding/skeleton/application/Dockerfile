@@ -15,7 +15,7 @@ USER 185
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/${{values.appName}}.jar"
-{%- elif values.runTimes == "node" -%}
+{%- elif values.runTimes == "nodejs" -%}
 # More possible license content here
 FROM node:${{values.runTimeVersion}}
 
