@@ -1,0 +1,33 @@
+---
+apiVersion: backstage.io/v1alpha1
+{%- if values.entityKind %}
+kind: ${{ values.entityKind }}
+{%- else %}
+kind: Component
+{%- endif %}
+metadata:
+  name: ${{ values.appName }}
+  {%- if values.description %}
+  description: ${{ values.description }}
+  {%- endif %}
+  annotations:
+    argocd.argoproj.io/synchronization: Exclude
+    argocd/app-name: ${{values.appName}}
+    argocd/namespace: ${{values.teamName}}-gitops
+    {%- if values.ci == "../../scaffolder-skeletons/tekton-skeleton/" %}
+    tektonci/build-namespace: ${{ values.namespace }}
+    {%- endif %}
+    backstage.io/kubernetes-id: ${{ values.appName }}
+    backstage.io/kubernetes-label-selector': 'app=${{values.appName}}'
+spec:
+  type: ${{ values.applicationType }}
+  lifecycle: production
+  owner: ${{ values.owner }}
+  {%- if values.dependsOn %}
+  dependsOn:
+    - ${{ values.dependsOn }}
+  {%- endif %}
+  {%- if values.partOf %}
+  partOf:
+    - ${{ values.partOf }}
+  {%- endif %}
