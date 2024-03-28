@@ -27,12 +27,12 @@ spec:
         namespace: ${{values.teamName}}-{{.path.filename | splitList "-" | first }}
       project: ${{values.teamName}}
       sources:
-        - chart: hello-world
-          helm:
+        - helm:
             valueFiles:
               - '$values/{{ .path.path }}/{{.path.filename}}'
-          repoURL: 'https://helm.github.io/examples'
-          targetRevision: 0.1.0
+          path: deploy
+          repoURL: 'https://github.com/idp-team/helm-charts'
+          targetRevision: main
         - ref: values
           repoURL: 'https://github.com/idp-team/team-a-gitops'
           targetRevision: main

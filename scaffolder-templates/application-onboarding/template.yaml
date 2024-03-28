@@ -274,7 +274,7 @@ spec:
           - created-by-developer-hub
   output:
     links:
-      - title: pull request link to platform repo
+      - title: Pull request link to platform repo
         url: ${{ steps.publishToPlatform.output.remoteUrl }}
         icon: github
       - title: pull request link to tenant repo

@@ -10,6 +10,7 @@ spec:
   sourceRepos:
     - https://github.com/idp-team/team-a-gitops.git
     - https://helm.github.io/examples
+    - https://github.com/idp-team/helm-charts
   destinations:
 {%- for env in values.allEnvironments %}
     - name: ${{values.teamName}}-${{env}}
