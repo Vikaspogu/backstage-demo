@@ -12,7 +12,7 @@ spec:
         repoURL: https://github.com/idp-team/team-a-gitops
         revision: HEAD
         files:
-          - path: "${{values.cluster}}/${{values.teamName}}/*.yaml"
+          - path: "${{values.cluster}}/${{values.appName}}/*.yaml"
   goTemplate: true
   goTemplateOptions:
     - missingkey=error
