@@ -251,6 +251,7 @@ spec:
           runTimes: ${{parameters.runTimes}}
           runTimeVersion: ${{parameters.runTimeVersion}}
           applicationType: resources
+          owner: ${{parameters.owner}}
     - id: publishToApplication
       name: Create a pull request to application repository
       action: publish:github:pull-request

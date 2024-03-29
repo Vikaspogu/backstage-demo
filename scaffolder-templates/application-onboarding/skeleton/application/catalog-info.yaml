@@ -8,7 +8,7 @@ kind: Component
 metadata:
   name: ${{ values.appName }}
   {%- if values.description %}
-  description: ${{ values.description }}
+  description: "${{ values.description }}"
   {%- endif %}
   annotations:
     argocd.argoproj.io/synchronization: Exclude
@@ -18,7 +18,7 @@ metadata:
     tektonci/build-namespace: ${{ values.namespace }}
     {%- endif %}
     backstage.io/kubernetes-id: ${{ values.appName }}
-    backstage.io/kubernetes-label-selector': 'app=${{values.appName}}'
+    backstage.io/kubernetes-label-selector: 'app=${{values.appName}}'
 spec:
   type: ${{ values.applicationType }}
   lifecycle: production
