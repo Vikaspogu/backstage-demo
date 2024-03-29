@@ -12,13 +12,14 @@ metadata:
   {%- endif %}
   annotations:
     argocd.argoproj.io/synchronization: Exclude
+    argocd/app-selector: "${{values.teamName}}-gitops=${{values.appName}}"
     argocd/app-name: ${{values.appName}}
     argocd/namespace: ${{values.teamName}}-gitops
     {%- if values.ci == "../../scaffolder-skeletons/tekton-skeleton/" %}
-    tektonci/build-namespace: ${{ values.namespace }}
+    tektonci/build-namespace: ${{ values.teamName }}-gitops
     {%- endif %}
     backstage.io/kubernetes-id: ${{ values.appName }}
-    backstage.io/kubernetes-label-selector: 'app=${{values.appName}}'
+    backstage.io/kubernetes-label-selector: 'app.kubernetes.io/instance=${{values.appName}}'
 spec:
   type: ${{ values.applicationType }}
   lifecycle: production

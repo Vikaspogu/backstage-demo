@@ -167,6 +167,7 @@ spec:
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
           applicationType: resources
+          appName: ${{parameters.appName}}
     - id: publishToPlatform
       name: Create a pull request to platform repository
       action: publish:github:pull-request
@@ -207,6 +208,7 @@ spec:
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
           applicationType: resources
+          appName: ${{parameters.appName}}
     - id: publishToTenant
       name: Create a pull request to tenant repository
       action: publish:github:pull-request
