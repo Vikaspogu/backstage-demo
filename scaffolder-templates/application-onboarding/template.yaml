@@ -53,13 +53,17 @@ spec:
             - acm (pxm-acm)
             - development (dev)
             - production (prod)
+        namespaceExists:
+          title: Does the namespace already exists?
+          type: boolean
+          description: Does the namespaces already created for this team?
         teamName:
           title: Name of your team
           type: string
           description: Team name; no spaces are allowed
           pattern: ^[a-z-]*$
           maxLength: 45
-          ui:help: 'Hint: Lowercase and only hyphens(-) allowed'
+          ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         appName:
           title: Name of your application
           type: string
@@ -168,6 +172,7 @@ spec:
           teamName: ${{parameters.teamName}}
           applicationType: resources
           appName: ${{parameters.appName}}
+          namespaceExists: ${{parameters.namespaceExists}}
     - id: publishToPlatform
       name: Create a pull request to platform repository
       action: publish:github:pull-request
@@ -209,6 +214,7 @@ spec:
           teamName: ${{parameters.teamName}}
           applicationType: resources
           appName: ${{parameters.appName}}
+          namespaceExists: ${{parameters.namespaceExists}}
     - id: publishToTenant
       name: Create a pull request to tenant repository
       action: publish:github:pull-request
@@ -248,12 +254,13 @@ spec:
           allEnvironments: ${{parameters.environments}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
-          description: '${{parameters.teamName}}: ${{parameters.appName}}'
+          description: "${{parameters.teamName}}: ${{parameters.appName}}"
           appName: ${{parameters.appName}}
           runTimes: ${{parameters.runTimes}}
           runTimeVersion: ${{parameters.runTimeVersion}}
           applicationType: resources
           owner: ${{parameters.owner}}
+          namespaceExists: ${{parameters.namespaceExists}}
     - id: publishToApplication
       name: Create a pull request to application repository
       action: publish:github:pull-request

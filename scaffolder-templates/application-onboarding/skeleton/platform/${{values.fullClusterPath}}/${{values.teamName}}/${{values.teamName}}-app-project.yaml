@@ -1,3 +1,4 @@
+{%- if !values.namespaceExists %}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -24,3 +25,4 @@ spec:
 {%- for env in values.allEnvironments %}
     - ${{values.teamName}}-${{env}}
 {%- endfor %}
+{%- endif %}
