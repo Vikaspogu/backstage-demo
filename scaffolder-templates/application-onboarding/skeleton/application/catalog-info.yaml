@@ -11,10 +11,8 @@ metadata:
   description: "${{ values.description }}"
   {%- endif %}
   annotations:
-    argocd.argoproj.io/synchronization: Exclude
     argocd/app-selector: "${{values.teamName}}-gitops=${{values.appName}}"
-    argocd/app-name: ${{values.appName}}
-    argocd/namespace: ${{values.teamName}}-gitops
+    argocd/app-namespace: ${{values.teamName}}-gitops
     {%- if values.ci == "../../scaffolder-skeletons/tekton-skeleton/" %}
     tektonci/build-namespace: ${{ values.teamName }}-gitops
     {%- endif %}

@@ -7,6 +7,10 @@ metadata:
 spec:
   resourceTrackingMethod: annotation
   kustomizeBuildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm
+  extraConfig:
+    accounts.developer-hub: apiKey, login
+    resource.compareoptions: |
+      ignoreAggregatedRoles: true
   sourceNamespaces:
 {%- for env in values.allEnvironments %}
     - ${{values.teamName}}-${{env}}
@@ -46,7 +50,20 @@ spec:
     defaultPolicy: ''
     policy: |
       g, system:cluster-admins, role:admin
+      g, openshift-admins, role:admin
+      g, developer-hub, role:readonly
     scopes: '[groups]'
+  sso:
+    dex:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+      openShiftOAuth: true
+    provider: dex
   redis:
     resources:
       limits:
