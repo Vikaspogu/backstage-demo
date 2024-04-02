@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ${{values.teamName}}-application-set
+  name: ${{values.appName}}-application-set
   namespace: ${{values.teamName}}-gitops
   labels:
-    ${{values.teamName}}-argocd: ${{values.teamName}}-appset
+    ${{values.teamName}}-argocd: ${{values.appName}}-appset
 spec:
   generators:
     - git:
@@ -18,7 +18,7 @@ spec:
     - missingkey=error
   template:
     metadata:
-      name: '${{values.teamName}}-{{.path.filename | splitList "-" | first }}'
+      name: '${{values.appName}}-{{.path.filename | splitList "-" | first }}'
       labels:
         ${{values.teamName}}-gitops: ${{values.appName}}
     spec:
