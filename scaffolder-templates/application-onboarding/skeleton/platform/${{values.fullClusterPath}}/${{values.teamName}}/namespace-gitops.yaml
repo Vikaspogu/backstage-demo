@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: ${{values.teamName}}-gitops
   labels:
-    tenant-gitops: true
+    tenant-gitops: "true"
