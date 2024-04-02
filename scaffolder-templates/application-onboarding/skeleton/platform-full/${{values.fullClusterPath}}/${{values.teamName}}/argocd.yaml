@@ -1,4 +1,3 @@
-{%- if values.namespaceExists == "false" %}
 ---
 kind: ArgoCD
 apiVersion: argoproj.io/v1beta1
@@ -103,4 +102,3 @@ spec:
       tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
-{%- endif %}
