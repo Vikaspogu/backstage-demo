@@ -1,4 +1,4 @@
-{%- if !values.namespaceExists %}
+{%- if values.namespaceExists == "false" %}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:

@@ -1,4 +1,4 @@
-{%- if !values.namespaceExists %}
+{%- if values.namespaceExists == "false" %}
 ---
 kind: ArgoCD
 apiVersion: argoproj.io/v1beta1
