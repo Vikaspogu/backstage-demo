@@ -179,7 +179,7 @@ spec:
       name: Fetch base platform template
       action: fetch:template
       each: ${{parameters.environments}}
-      if: ${{ parameters.namespaceExists == "true" }}
+      if: ${{ parameters.namespaceExists}}
       input:
         url: ./skeleton/platform-partial
         values:

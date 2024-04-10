@@ -1,5 +1,5 @@
 {%- if values.runTimes == "java" %}
-FROM registry.access.redhat.com/ubi8/openjdk-{{$values.runTimeVersion}}:1.11
+FROM registry.access.redhat.com/ubi8/openjdk-${{values.runTimeVersion}}:1.11
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 
