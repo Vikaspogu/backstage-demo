@@ -158,31 +158,6 @@ spec:
           enumNames:
             - Sample App Repo (application-repo)
   steps:
-    - id: date-log
-      name: Console.log
-      action: debug:log
-      input:
-        message: |
-          Current Date and Time: `<%= new Date().toLocaleString() %>`
-
-    - action: fetch:plain
-      id: fetch-plain
-      name: Fetch plain
-      input:
-        url: http://worldtimeapi.org/api/ip
-    - id: backstage_request
-      name: backstage request
-      action: roadiehq:utils:jsonata:json:transform
-      input:
-        path: ${{ steps['fetch-plain'].output.path }}
-        expression: ${{ parameters.expression }}
-    - id: log
-      name: Console.log
-      action: debug:log
-      input:
-        message: |
-          Result: `${{ steps['transform'].output.result }}`
-
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
