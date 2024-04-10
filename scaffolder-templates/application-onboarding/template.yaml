@@ -5,6 +5,11 @@ metadata:
   name: application-onboarding
   title: Application Onboarding template
   description: scaffolder v1beta3 template to onboard an application into OpenShift cluster
+  substitute:
+    engineering:
+      devops: 1
+      security: 4
+      development_team: 2
   tags:
     - onboarding
     - tekton
