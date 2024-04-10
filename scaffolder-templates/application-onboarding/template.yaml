@@ -163,7 +163,7 @@ spec:
       action: debug:log
       input:
         message: |
-          Result: `$(date +'%Y-%m-%d')`
+          Result: $(date +'%Y-%m-%d')
 
     - action: fetch:plain
       id: fetch-plain
