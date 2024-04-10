@@ -158,16 +158,24 @@ spec:
           enumNames:
             - Sample App Repo (application-repo)
   steps:
+    - action: fetch:plain
+      id: fetch-plain
+      name: Fetch plain
+      input:
+        url: http://worldtimeapi.org/api/ip
     - id: backstage_request
       name: backstage request
-      action: http:backstage:request
+      action: roadiehq:utils:jsonata:json:transform
       input:
-        method: "GET"
-        path: http://worldtimeapi.org/api/ip
-    - name: Only production environments
+        path: ${{ steps['fetch-plain'].output.path }}
+        expression: ${{ parameters.expression }}
+    - id: log
+      name: Console.log
       action: debug:log
       input:
-        message: "{{ steps.backstage_request.output.body }}"
+        message: |
+          Result: `${{ steps['transform'].output.result }}`
+
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
