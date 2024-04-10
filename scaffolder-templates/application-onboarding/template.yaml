@@ -163,7 +163,7 @@ spec:
       action: debug:log
       input:
         message: |
-          Current Date and Time: <%= new Date().toLocaleString() %>
+          Current Date and Time: `<%= new Date().toLocaleString() %>`
 
     - action: fetch:plain
       id: fetch-plain
