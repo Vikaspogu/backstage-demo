@@ -158,6 +158,16 @@ spec:
           enumNames:
             - Sample App Repo (application-repo)
   steps:
+    - id: backstage_request
+      name: backstage request
+      action: http:backstage:request
+      input:
+        method: "GET"
+        path: http://worldtimeapi.org/api/ip
+    - name: Only production environments
+      action: debug:log
+      input:
+        message: "{{ steps.backstage_request.output.body }}"
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
