@@ -8,7 +8,7 @@ kind: Component
 metadata:
   name: ${{ values.appName }}
   {%- if values.description %}
-  description: "${{ cookiecutter.timestamp }}${{ values.description }}"
+  description: "${{ timestamp }}${{ values.description }}"
   {%- endif %}
   annotations:
     argocd/app-selector: "${{values.teamName}}-gitops=${{values.appName}}"
