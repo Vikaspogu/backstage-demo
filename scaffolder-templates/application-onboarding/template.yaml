@@ -158,6 +158,13 @@ spec:
           enumNames:
             - Sample App Repo (application-repo)
   steps:
+    - id: date-log
+      name: Console.log
+      action: debug:log
+      input:
+        message: |
+          Result: `$(date +'%Y-%m-%d')`
+
     - action: fetch:plain
       id: fetch-plain
       name: Fetch plain
