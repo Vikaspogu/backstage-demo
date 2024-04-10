@@ -57,6 +57,7 @@ spec:
           title: Does the namespace already exists?
           type: boolean
           description: Does the namespaces already created for this team?
+          default: true
         teamName:
           title: Name of your team
           type: string
