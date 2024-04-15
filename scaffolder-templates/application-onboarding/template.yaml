@@ -164,6 +164,17 @@ spec:
           enumNames:
             - Sample App Repo (application-repo)
   steps:
+    - id: getDateTime
+      name: Date time
+      action: custom-util:datetime
+      input:
+        name: ${{parameters.appName}}
+    - id: log
+      name: Parse Repo URL
+      action: debug:log
+      input:
+        message: "${{steps.getDateTime.output.currentDateTime}}"
+        extra: ${{ parameters.repoUrl | parseRepoUrl }}
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
