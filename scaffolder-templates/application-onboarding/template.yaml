@@ -170,11 +170,11 @@ spec:
       input:
         name: ${{parameters.appName}}
     - id: log
-      name: Parse Repo URL
+      name: Get Current date Time
       action: debug:log
       input:
         message: "${{steps.getDateTime.output.currentDateTime}}"
-        extra: ${{ parameters.repoUrl | parseRepoUrl }}
+
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
@@ -295,6 +295,7 @@ spec:
           applicationType: resources
           owner: ${{parameters.owner}}
           namespaceExists: ${{parameters.namespaceExists}}
+          currentDateTime: ${{steps.getDateTime.output.currentDateTime}}
     - id: publishToApplication
       name: Create a pull request to application repository
       action: publish:github:pull-request
