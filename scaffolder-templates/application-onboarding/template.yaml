@@ -166,15 +166,23 @@ spec:
   steps:
     - id: getDateTime
       name: Date time
-      action: custom-util:datetime
-      input:
-        name: ${{parameters.appName}}
+      action: custom-utils:datetime
     - id: log
-      name: Get Current date Time
+      name: Print currentDateTime output value
       action: debug:log
       input:
         message: "${{steps.getDateTime.output.currentDateTime}}"
-
+    - id: generatedNamespaceName
+      name: Get namespace name
+      action: custom-utils:generate-namespace-name
+      input:
+        appName: ${{parameters.appName}}
+        networkType: external
+    - id: log
+      name: Print generatedNamespaceName output value
+      action: debug:log
+      input:
+        message: "${{steps.generatedNamespaceName.output.generatedNamespaceName}}"
     - id: fetchFullPlatformSkeleton
       name: Fetch base platform template
       action: fetch:template
