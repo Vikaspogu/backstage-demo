@@ -176,8 +176,10 @@ spec:
       name: Get namespace name
       action: custom-utils:generate-namespace-name
       input:
-        appName: ${{parameters.appName}}
+        lineOfBusiness: commercial
         networkType: external
+        acronym: sa
+        nameExtra: extra
     - id: log
       name: Print generatedNamespaceName output value
       action: debug:log
