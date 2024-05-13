@@ -1,0 +1,51 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: pcf-to-ocp-onboarding
+  title: Onboarding template for PCF to OpenShift applications
+  description: scaffolder v1beta3 template to onboard an application into OpenShift cluster
+  substitute:
+    engineering:
+      devops: 1
+      security: 4
+      development_team: 2
+  tags:
+    - pcf
+    - openshift
+  links:
+    - title: Documentation
+      url: https://backstage.io/docs/features/software-templates
+      icon: docs
+    - title: Source
+      url: https://github.com/Vikaspogu/software-templates/blob/main/scaffolder-templates/pcf-to-ocp/template.yaml
+      icon: github
+spec:
+  parameters:
+    - title: Fill in some steps
+      required:
+        - manifest_url
+      properties:
+        manifest_url:
+          title: Manifest URL for Repository
+          type: string
+          description: Unique name of the component
+  steps:
+    - action: fetch:plain:file
+      id: fetch-plain-file
+      name: Fetch plain file
+      input:
+        url: ${{parameters.manifest_url}}
+        targetPath: manifest.yaml
+
+    - id: parse_yaml
+      name: Parse PCF manifest
+      action: roadiehq:utils:jsonata:yaml:transform
+      input:
+        path: manifest.yaml
+
+    - id: log
+      name: Print manifest
+      action: debug:log
+      input:
+        message: "${{steps.parse_yaml.output.result}}"
