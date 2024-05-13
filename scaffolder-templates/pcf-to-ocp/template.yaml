@@ -21,6 +21,8 @@ metadata:
       url: https://github.com/Vikaspogu/software-templates/blob/main/scaffolder-templates/pcf-to-ocp/template.yaml
       icon: github
 spec:
+  owner: group:ops
+  type: service
   parameters:
     - title: Fill in some steps
       required:
