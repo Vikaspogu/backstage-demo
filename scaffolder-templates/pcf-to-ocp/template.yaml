@@ -52,10 +52,10 @@ spec:
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.parse_yaml.output.content}}"
+        message: "${{steps.parse_yaml.output.result}}"
 
     - id: log-name
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.parse_yaml.output.content.applications[0].name}}"
+        message: "${{steps.parse_yaml.output.result.name}}"
