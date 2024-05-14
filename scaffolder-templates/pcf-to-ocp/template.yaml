@@ -61,22 +61,24 @@ spec:
       input:
         data: ${{ steps['transform'].output.result }}
 
-    - id: log-name
-      name: Print manifest
-      action: debug:log
+    - id: fetchBaseApplicationTemplates
+      name: Fetch base templates for application repo
+      action: fetch:template
+      each: ${{parameters.environments}}
       input:
-        message: "${{steps.pcfManifestParser.output.manifestName}}"
+        url: ./skeleton
+        values:
+          manifestName: ${{steps.pcfManifestParser.output.manifestName}}
+          buildPack: ${{steps.pcfManifestParser.output.manifestBuildpack}}
+          env: ${{steps.pcfManifestParser.output.manifestEnv}}
 
-    - id: log-buildpack
-      name: Print manifest
-      action: debug:log
+    - id: publishToApplication
+      name: Create a pull request to application repository
+      action: publish:github:pull-request
       input:
-        message: |
-          `${{steps.pcfManifestParser.output.manifestBuildpack}}`
-
-    - id: log-env
-      name: Print manifest
-      action: debug:log
-      input:
-        message: |
-          `${{steps.pcfManifestParser.output.manifestEnv}}`
+        repoUrl: github.com?owner=vikaspogu&repo=pcf-applications
+        branchName: onboarding
+        title: Onboarding of new
+        update: true
+        description: |
+          ### Requesting Onboarding of new

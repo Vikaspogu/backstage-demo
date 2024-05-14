@@ -1,0 +1,3 @@
+${{values.manifestName}}
+${{values.buildPack}}
+${{values.env}}
