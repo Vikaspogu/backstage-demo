@@ -48,6 +48,12 @@ spec:
         path: manifest.yaml
         parser: yaml
 
+    - id: log-fileparse
+      name: Print manifest
+      action: debug:log
+      input:
+        message: "${{ steps['parse'].output.content }}"
+
     - id: pcfManifestParser
       name: PCF Manifest parser
       action: custom-utils:pcf-manifest-parser
