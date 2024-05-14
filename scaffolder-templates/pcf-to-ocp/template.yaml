@@ -46,7 +46,7 @@ spec:
       action: roadiehq:utils:jsonata:yaml:transform
       input:
         path: manifest.yaml
-        expression: "$.applications"
+        expression: "$.applications[0]"
 
     - id: log
       name: Console.log
