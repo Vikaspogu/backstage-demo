@@ -41,18 +41,11 @@ spec:
         url: ${{parameters.manifest_url}}
         targetPath: manifest.yaml
 
-    - id: parse
-      name: read file
-      action: roadiehq:utils:fs:parse
-      input:
-        path: ./manifest.yaml
-        parser: yaml
-
     - id: pcfManifestParser
       name: PCF Manifest parser
       action: custom-utils:pcf-manifest-parser
       input:
-        yamlContent: ${{ steps['parse'].output.content }}
+        path: ./manifest.yaml
 
     - id: log-name
       name: Print manifest
