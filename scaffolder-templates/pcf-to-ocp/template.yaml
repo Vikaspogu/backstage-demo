@@ -51,4 +51,4 @@ spec:
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.pcfManifestParser.output.applicationValues}}"
+        message: "${{steps.pcfManifestParser.output.content}}"
