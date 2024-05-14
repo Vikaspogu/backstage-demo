@@ -51,3 +51,9 @@ spec:
       action: debug:log
       input:
         message: "${{steps.parse_yaml.output.content}}"
+
+    - id: log-name
+      name: Print manifest
+      action: debug:log
+      input:
+        message: "${{steps.parse_yaml.output.content.applications[0].name}}"
