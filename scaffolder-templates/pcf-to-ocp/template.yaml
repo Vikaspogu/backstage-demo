@@ -52,3 +52,15 @@ spec:
       action: debug:log
       input:
         message: "${{steps.pcfManifestParser.output.manifestName}}"
+
+    - id: log-buildpack
+      name: Print manifest
+      action: debug:log
+      input:
+        message: "${{steps.pcfManifestParser.output.manifestBuildpack}}"
+
+    - id: log-env
+      name: Print manifest
+      action: debug:log
+      input:
+        message: "${{steps.pcfManifestParser.output.manifestEnv}}"
