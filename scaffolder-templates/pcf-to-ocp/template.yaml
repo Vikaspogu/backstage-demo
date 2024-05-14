@@ -54,6 +54,13 @@ spec:
       input:
         data: ${{ steps['transform'].output.result }}
 
+    - action: fs:delete
+      id: cleanupTenantTemplates
+      name: Cleanup tenant Templates
+      input:
+        files:
+          - manifest.yaml
+
     - id: fetchBaseTemplates
       name: Fetch base templates for application repo
       action: fetch:template
@@ -74,3 +81,8 @@ spec:
         update: true
         description: |
           ### Requesting Onboarding of new
+  output:
+    links:
+      - title: Pull request link to platform repo
+        url: ${{ steps.publishToApplication.output.remoteUrl }}
+        icon: github
