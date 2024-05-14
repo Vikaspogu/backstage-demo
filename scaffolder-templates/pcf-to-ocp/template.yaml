@@ -52,7 +52,7 @@ spec:
       name: PCF Manifest parser
       action: custom-utils:pcf-manifest-parser
       input:
-        content: ${{ steps['parse'].output.content }}
+        data: ${{ steps['parse'].output.content }}
 
     - id: log-name
       name: Print manifest
