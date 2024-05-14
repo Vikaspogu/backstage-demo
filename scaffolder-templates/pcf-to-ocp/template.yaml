@@ -78,4 +78,5 @@ spec:
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.pcfManifestParser.output.manifestEnv}}"
+        message: |
+          `${{steps.pcfManifestParser.output.manifestEnv}}`
