@@ -45,7 +45,7 @@ spec:
       name: read file
       action: roadiehq:utils:fs:parse
       input:
-        path: ./manifest.yaml
+        path: manifest.yaml
         parser: yaml
 
     - id: pcfManifestParser
