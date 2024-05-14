@@ -41,21 +41,21 @@ spec:
         url: ${{parameters.manifest_url}}
         targetPath: manifest.yaml
 
-    - id: parse_yaml
-      name: Parse PCF manifest
-      action: roadiehq:utils:jsonata:yaml:transform
+    - id: parse
+      name: read file
+      action: roadiehq:utils:fs:parse
       input:
-        path: manifest.yaml
-        expression: "$.applications"
+        path: ./manifest.yaml
+        parser: yaml
 
-    - id: log
-      name: Print manifest
-      action: debug:log
+    - id: pcfManifestParser
+      name: PCF Manifest parser
+      action: custom-utils:pcf-manifest-parser
       input:
-        message: "${{steps.parse_yaml.output.result}}"
+        yamlContent: ${{ steps['parse'].output.content }}
 
     - id: log-name
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.parse_yaml.output.result.name}}"
+        message: "${{steps.pcfManifestParser.output.applicationValues}}"
