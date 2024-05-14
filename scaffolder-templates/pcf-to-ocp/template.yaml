@@ -48,11 +48,18 @@ spec:
         path: manifest.yaml
         parser: yaml
 
-    - id: log-fileparse
-      name: Print manifest
+    - id: serialize
+      name: Serialize
+      action: roadiehq:utils:serialize:yaml
+      input:
+        data: ${{ steps['parse'].output.content }}
+
+    - id: log
+      name: Console.log
       action: debug:log
       input:
-        message: "${{ steps['parse'].output.content }}"
+        message: |
+          Content: `${{ steps['serialize'].output.serialized }}`
 
     - id: pcfManifestParser
       name: PCF Manifest parser
