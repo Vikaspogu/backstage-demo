@@ -32,6 +32,7 @@ spec:
           title: Manifest URL for Repository
           type: string
           description: Unique name of the component
+          default: https://github.com/Vikaspogu/pcf-applications/blob/main/basic-spring-boot-api/manifest.yml
   steps:
     - action: fetch:plain:file
       id: fetch-plain-file
@@ -42,9 +43,10 @@ spec:
 
     - id: parse_yaml
       name: Parse PCF manifest
-      action: roadiehq:utils:fs:parse
+      action: roadiehq:utils:jsonata:yaml:transform
       input:
         path: manifest.yaml
+        expression: "$ ~> | $.applications"
 
     - id: log
       name: Print manifest
