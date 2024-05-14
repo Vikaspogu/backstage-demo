@@ -42,7 +42,7 @@ spec:
 
     - id: parse_yaml
       name: Parse PCF manifest
-      action: roadiehq:utils:jsonata:yaml:transform
+      action: roadiehq:utils:fs:parse
       input:
         path: manifest.yaml
 
@@ -50,4 +50,4 @@ spec:
       name: Print manifest
       action: debug:log
       input:
-        message: "${{steps.parse_yaml.output.result}}"
+        message: "${{steps.parse_yaml.output.content}}"
