@@ -48,6 +48,13 @@ spec:
         path: manifest.yaml
         expression: "$.applications"
 
+    - id: log
+      name: Console.log
+      action: debug:log
+      input:
+        message: |
+          Result: `${{ steps['transform'].output.result }}`
+
     - id: pcfManifestParser
       name: PCF Manifest parser
       action: custom-utils:pcf-manifest-parser
