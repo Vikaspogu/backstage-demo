@@ -49,13 +49,13 @@ spec:
         cluster:
           title: Select an OpenShift cluster
           type: string
-          default: pxm-acm
+          default: dev-acm
           enum:
-            - pxm-acm
+            - dev-acm
             - dev
             - prod
           enumNames:
-            - acm (pxm-acm)
+            - acm (dev-acm)
             - development (dev)
             - production (prod)
         namespaceExists:
@@ -71,7 +71,7 @@ spec:
           maxLength: 45
           ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         appName:
-          title: Name of your application
+          title: Name of your application for onboarding
           type: string
           description: Application name; no spaces are allowed
           pattern: ^[a-z-]*$
@@ -84,11 +84,9 @@ spec:
           enum:
             - java
             - nodejs
-            - liberty
           enumNames:
             - Java
             - NodeJS
-            - Liberty
         owner:
           title: Owner
           type: string
@@ -113,11 +111,9 @@ spec:
                     enum:
                       - openjdk-11
                       - openjdk-17
-                      - openjdk-21
                     enumNames:
                       - OpenJDK 11
                       - OpenJDK 17
-                      - OpenJDK 21
             - if:
                 properties:
                   runTimes:
@@ -137,61 +133,33 @@ spec:
                       - NodeJS 17
                       - NodeJS 21
 
-    - title: Provide information about the GitHub location
+    - title: Provide information about the different GitHub repositories
       required:
-        - repository
-        - repoName
-        - owner
+        - applicationRepo
       properties:
-        owner:
-          title: Owner
+        applicationRepo:
+          title: Application Repository URL
           type: string
-          description: Owner of the component
-        repository:
-          title: Application Repository Organization
+          description: Git Repository URL for the application
+        gitopsRepo:
+          title: Git Repository URL for the team's helm values
           type: string
-          default: idp-team
-          enum:
-            - idp-team
-          enumNames:
-            - IDP Team Organization (idp-team)
-        repoName:
-          title: Repository Name
+          description: Git Repository URL for the team's helm values
+        helmChartsRepo:
+          title: Git Repository URL for the helm charts
           type: string
-          default: application-repo
-          enum:
-            - application-repo
-          enumNames:
-            - Sample App Repo (application-repo)
+          ui:readonly: true
+          default: https://github.com/devhub-showcase/helm-charts
+          description: Git Repository URL for the team's helm values
+
   steps:
-    - id: getDateTime
-      name: Date time
-      action: custom-utils:datetime
-    - id: log
-      name: Print currentDateTime output value
-      action: debug:log
-      input:
-        message: "${{steps.getDateTime.output.currentDateTime}}"
-    - id: generatedNamespaceName
-      name: Get namespace name
-      action: custom-utils:generate-namespace-name
-      input:
-        lineOfBusiness: commercial
-        networkType: external
-        acronym: sa
-        nameExtra: extra
-    - id: log
-      name: Print generatedNamespaceName output value
-      action: debug:log
-      input:
-        message: "${{steps.generatedNamespaceName.output.generatedNamespaceName}}"
-    - id: fetchFullPlatformSkeleton
-      name: Fetch base platform template
+    - id: skeletonNamespaceDoesntExists
+      name: Fetch base template for platform repository
       action: fetch:template
       each: ${{parameters.environments}}
       if: ${{ parameters.namespaceExists == "false" }}
       input:
-        url: ./skeleton/platform-full
+        url: ./skeleton/platform-no-namespace/
         values:
           cluster: ${{parameters.cluster}}
           fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
@@ -201,13 +169,14 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
-    - id: fetchPlatformSkeleton
-      name: Fetch base platform template
+
+    - id: skeletonNamespaceExists
       action: fetch:template
+      name: Fetch base template for platform repository when namespace already exists
       each: ${{parameters.environments}}
       if: ${{ parameters.namespaceExists}}
       input:
-        url: ./skeleton/platform-partial
+        url: ./skeleton/platform-namespace-exists/
         values:
           cluster: ${{parameters.cluster}}
           fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
@@ -217,6 +186,7 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
+
     - id: publishToPlatform
       name: Create a pull request to platform repository
       action: publish:github:pull-request
@@ -229,6 +199,7 @@ spec:
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
           This pull request is generated by Developer Hub
+
     - id: labelPrForPlatform
       name: Add labels to PR to platform repository
       action: github:issues:label
@@ -238,6 +209,7 @@ spec:
         labels:
           - onboarding
           - created-by-backstage
+
     - action: fs:delete
       id: cleanupPlatformTemplates
       name: Cleanup Platform Templates
@@ -250,7 +222,7 @@ spec:
       action: fetch:template
       each: ${{parameters.environments}}
       input:
-        url: ./skeleton/tenant/
+        url: ./skeleton/tenant-gitops/
         values:
           cluster: ${{parameters.cluster}}
           allEnvironments: ${{parameters.environments}}
@@ -259,6 +231,7 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
+
     - id: publishToTenant
       name: Create a pull request to tenant repository
       action: publish:github:pull-request
@@ -271,6 +244,7 @@ spec:
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
           This pull request is generated by Developer Hub
+
     - id: labelPrForTenant
       name: Add labels to PR to tenant repository
       action: github:issues:label
@@ -280,6 +254,7 @@ spec:
         labels:
           - onboarding
           - created-by-developer-hub
+
     - action: fs:delete
       id: cleanupTenantTemplates
       name: Cleanup tenant Templates
@@ -306,6 +281,7 @@ spec:
           owner: ${{parameters.owner}}
           namespaceExists: ${{parameters.namespaceExists}}
           currentDateTime: ${{steps.getDateTime.output.currentDateTime}}
+
     - id: publishToApplication
       name: Create a pull request to application repository
       action: publish:github:pull-request
@@ -318,6 +294,7 @@ spec:
           ### Requesting Onboarding of new ${{parameters.teamName}}
 
           This pull request is generated by Developer Hub
+
     - id: labelPrForApplication
       name: Add labels to PR to application repository
       action: github:issues:label
@@ -327,6 +304,7 @@ spec:
         labels:
           - onboarding
           - created-by-developer-hub
+
   output:
     links:
       - title: Pull request link to platform repo
