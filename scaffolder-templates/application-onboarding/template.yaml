@@ -321,12 +321,12 @@ spec:
 
   output:
     links:
-      - title: Pull request link to platform repo
+      - title: Pull Request# ${{ steps.publishToPlatform.output.pullRequestNumber }} with ${{ steps.publishToPlatform.output.targetBranchName }} to platform repo
         url: ${{ steps.publishToPlatform.output.remoteUrl }}
         icon: github
-      - title: pull request link to tenant repo
+      - title: Pull Request# ${{ steps.publishToTenant.output.pullRequestNumber }} with ${{ steps.publishToTenant.output.targetBranchName }} to tenant repo
         url: ${{ steps.publishToTenant.output.remoteUrl }}
         icon: github
-      - title: pull request link to application repo
+      - title: Pull Request# ${{ steps.publishToApplication.output.pullRequestNumber }} with ${{ steps.publishToApplication.output.targetBranchName }} to application repo
         url: ${{ steps.publishToApplication.output.remoteUrl }}
         icon: github
