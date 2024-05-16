@@ -141,6 +141,7 @@ spec:
           title: Application Repository URL
           type: string
           ui:field: RepoUrlPicker
+          default: github.com?repo=devhub-showcase&repo=basic-springboot-app
           ui:options:
             allowedHosts:
               - github.com
@@ -149,6 +150,7 @@ spec:
           title: Git Repository URL for the team's helm values
           type: string
           ui:field: RepoUrlPicker
+          default: github.com?repo=devhub-showcase&repo=tenant-gitops
           ui:options:
             allowedHosts:
               - github.com
@@ -244,7 +246,7 @@ spec:
       name: Create a pull request to tenant repository
       action: publish:github:pull-request
       input:
-        repoUrl: github.com?owner=idp-team&repo=team-a-gitops
+        repoUrl: ${{parameters.gitopsRepo}}
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
@@ -257,7 +259,7 @@ spec:
       name: Add labels to PR to tenant repository
       action: github:issues:label
       input:
-        repoUrl: github.com?owner=idp-team&repo=team-a-gitops
+        repoUrl: ${{parameters.gitopsRepo}}
         number: ${{ steps.publishToTenant.output.pullRequestNumber }}
         labels:
           - onboarding
@@ -294,7 +296,7 @@ spec:
       name: Create a pull request to application repository
       action: publish:github:pull-request
       input:
-        repoUrl: github.com?owner=idp-team&repo=${{parameters.repoName}}
+        repoUrl: ${{parameters.applicationRepo}}
         branchName: onboarding/${{parameters.teamName}}
         title: Onboarding of new ${{parameters.teamName}}
         update: true
@@ -307,7 +309,7 @@ spec:
       name: Add labels to PR to application repository
       action: github:issues:label
       input:
-        repoUrl: github.com?owner=idp-team&repo=${{parameters.repoName}}
+        repoUrl: ${{parameters.applicationRepo}}
         number: ${{ steps.publishToApplication.output.pullRequestNumber }}
         labels:
           - onboarding
