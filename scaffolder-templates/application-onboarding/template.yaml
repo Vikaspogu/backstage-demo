@@ -163,6 +163,14 @@ spec:
           description: Git Repository URL for the team's helm values
 
   steps:
+    - id: repo name
+      action: debug:log
+      input:
+        message: '${{parameters.applicationRepo}}'
+    - id: repo owner
+      action: debug:log
+      input:
+        message: '${{parameters.applicationRepo.owner}}'
     - id: skeletonNamespaceDoesntExists
       name: Fetch base template for platform repository
       action: fetch:template
