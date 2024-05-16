@@ -1,4 +1,4 @@
-{%- if values.runTimes == "java" %}
+{%- if values.runTimes == "java" -%}
 {%- if values.runTimeVersion == "openjdk-11" %}
 FROM registry.access.redhat.com/ubi8/openjdk-11:1.17
 {%- elif values.runTimeVersion == "openjdk-17" -%}

@@ -163,14 +163,6 @@ spec:
           description: Git Repository URL for the team's helm values
 
   steps:
-    - id: repo name
-      action: debug:log
-      input:
-        message: '${{parameters.applicationRepo}}'
-    - id: repo owner
-      action: debug:log
-      input:
-        message: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}`
     - id: skeletonNamespaceDoesntExists
       name: Fetch base template for platform repository
       action: fetch:template
@@ -187,6 +179,8 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
+          repositoryOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          repositoryName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: skeletonNamespaceExists
       action: fetch:template
@@ -204,6 +198,8 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
+          repositoryOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          repositoryName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository
