@@ -141,7 +141,7 @@ spec:
           title: Application Repository URL
           type: string
           ui:field: RepoUrlPicker
-          default: github.com?repo=devhub-showcase&repo=basic-springboot-app
+          default: github.com?owner=devhub-showcase&repo=basic-springboot-app
           ui:options:
             allowedHosts:
               - github.com
@@ -150,7 +150,7 @@ spec:
           title: Git Repository URL for the team's helm values
           type: string
           ui:field: RepoUrlPicker
-          default: github.com?repo=devhub-showcase&repo=tenant-gitops
+          default: github.com?owner=devhub-showcase&repo=tenant-gitops
           ui:options:
             allowedHosts:
               - github.com
