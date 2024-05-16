@@ -170,7 +170,7 @@ spec:
     - id: repo owner
       action: debug:log
       input:
-        message: '${{parameters.applicationRepo | parseRepoUrl).owner}}'
+        message: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}`
     - id: skeletonNamespaceDoesntExists
       name: Fetch base template for platform repository
       action: fetch:template
