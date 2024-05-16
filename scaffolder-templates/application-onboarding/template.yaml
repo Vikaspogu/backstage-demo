@@ -167,7 +167,7 @@ spec:
       name: Fetch base template for platform repository
       action: fetch:template
       each: ${{parameters.environments}}
-      if: ${{ parameters.namespaceExists == "false" }}
+      if: ${{ parameters.namespaceExists === false}}
       input:
         url: ./skeleton/platform-no-namespace/
         values:
