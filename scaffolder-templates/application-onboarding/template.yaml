@@ -140,10 +140,18 @@ spec:
         applicationRepo:
           title: Application Repository URL
           type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
           description: Git Repository URL for the application
         gitopsRepo:
           title: Git Repository URL for the team's helm values
           type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
           description: Git Repository URL for the team's helm values
         helmChartsRepo:
           title: Git Repository URL for the helm charts
