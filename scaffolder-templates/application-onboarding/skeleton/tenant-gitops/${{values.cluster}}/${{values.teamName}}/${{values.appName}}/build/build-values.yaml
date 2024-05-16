@@ -3,4 +3,4 @@ build:
 
 git:
   branch: main
-  repo: https://github.com/\${{values.repositoryOwner}}/\${{values.repositoryName}}.git 
+  repo: https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}.git 

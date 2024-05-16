@@ -62,7 +62,7 @@ spec:
           title: Does the namespace already exists?
           type: boolean
           description: Does the namespaces already created for this team?
-          default: true
+          default: false
         teamName:
           title: Name of your team
           type: string
@@ -179,8 +179,8 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
-          repositoryOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
-          repositoryName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: skeletonNamespaceExists
       action: fetch:template
@@ -198,8 +198,8 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
-          repositoryOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
-          repositoryName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository
@@ -245,6 +245,8 @@ spec:
           applicationType: resources
           appName: ${{parameters.appName}}
           namespaceExists: ${{parameters.namespaceExists}}
+          applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: publishToTenant
       name: Create a pull request to tenant repository
@@ -294,7 +296,8 @@ spec:
           applicationType: resources
           owner: ${{parameters.owner}}
           namespaceExists: ${{parameters.namespaceExists}}
-          currentDateTime: ${{steps.getDateTime.output.currentDateTime}}
+          applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
+          applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
 
     - id: publishToApplication
       name: Create a pull request to application repository
@@ -321,12 +324,12 @@ spec:
 
   output:
     links:
-      - title: Pull Request# ${{ steps.publishToPlatform.output.pullRequestNumber }} with ${{ steps.publishToPlatform.output.targetBranchName }} to platform repo
+      - title: Pull Request# ${{ steps.publishToPlatform.output.pullRequestNumber }} to platform repo
         url: ${{ steps.publishToPlatform.output.remoteUrl }}
         icon: github
-      - title: Pull Request# ${{ steps.publishToTenant.output.pullRequestNumber }} with ${{ steps.publishToTenant.output.targetBranchName }} to tenant repo
+      - title: Pull Request# ${{ steps.publishToTenant.output.pullRequestNumber }} to tenant repository ${{parameters.gitopsRepo}}
         url: ${{ steps.publishToTenant.output.remoteUrl }}
         icon: github
-      - title: Pull Request# ${{ steps.publishToApplication.output.pullRequestNumber }} with ${{ steps.publishToApplication.output.targetBranchName }} to application repo
+      - title: Pull Request# ${{ steps.publishToApplication.output.pullRequestNumber }} to application repository ${{parameters.applicationRepo}}
         url: ${{ steps.publishToApplication.output.remoteUrl }}
         icon: github
