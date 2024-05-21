@@ -5,7 +5,7 @@ metadata:
   name: ${{values.appName}}-app
   namespace: ${{values.teamName}}-gitops
   labels:
-    type: app
+    type: config
 spec:
   destination:
     server: "https://kubernetes.default.svc"
@@ -24,6 +24,7 @@ spec:
         - name: VALUES_FILE
           value: ${{values.fullClusterPath}}/${{values.teamName}}/project-onboarding-values/values.yaml
   syncPolicy:
+    automated: {}
     retry:
       backoff:
         duration: 120s
