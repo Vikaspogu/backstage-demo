@@ -12,6 +12,7 @@ metadata:
       development_team: 2
   tags:
     - onboarding
+    - openshift
     - tekton
     - argocd
   links:
