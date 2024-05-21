@@ -174,7 +174,6 @@ spec:
     - id: skeletonNamespaceDoesntExists
       name: Fetch base template for platform repository
       action: fetch:template
-      each: ${{parameters.environments}}
       if: ${{ parameters.namespaceExists === false}}
       input:
         url: ./skeleton/platform-no-namespace/
@@ -197,7 +196,6 @@ spec:
     - id: skeletonNamespaceExists
       action: fetch:template
       name: Fetch base template for platform repository when namespace already exists
-      each: ${{parameters.environments}}
       if: ${{ parameters.namespaceExists}}
       input:
         url: ./skeleton/platform-namespace-exists/

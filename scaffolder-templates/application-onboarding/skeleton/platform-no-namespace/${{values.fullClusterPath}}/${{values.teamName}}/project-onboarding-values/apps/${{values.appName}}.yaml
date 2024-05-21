@@ -1,7 +1,9 @@
 apps:
-  ${{values.aapName}}:
+  ${{values.appName}}:
     namespaces:
-      - ${{values.teamName}}-${{values.environment}}
+    {% for env in values.allEnvironments %}
+      - {{env}}
+    {% endfor %}
     sourceRepos:
       - https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}
     tenantGitops:
