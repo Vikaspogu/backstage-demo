@@ -63,12 +63,19 @@ spec:
           type: boolean
           description: Does the namespaces already created for this team?
           default: false
+        domain:
+          title: Application Domain
+          type: string
+          description: Domain name; no spaces are allowed
+          pattern: ^[a-z-]*$
+          maxLength: 10
+          ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         teamName:
           title: Name of your team
           type: string
           description: Team name; no spaces are allowed
           pattern: ^[a-z-]*$
-          maxLength: 45
+          maxLength: 10
           ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         appName:
           title: Name of your application for onboarding
@@ -178,6 +185,7 @@ spec:
           teamName: ${{parameters.teamName}}
           applicationType: resources
           appName: ${{parameters.appName}}
+          domain: ${{parameters.domain}}
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
@@ -200,6 +208,7 @@ spec:
           teamName: ${{parameters.teamName}}
           applicationType: resources
           appName: ${{parameters.appName}}
+          domain: ${{parameters.domain}}
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
