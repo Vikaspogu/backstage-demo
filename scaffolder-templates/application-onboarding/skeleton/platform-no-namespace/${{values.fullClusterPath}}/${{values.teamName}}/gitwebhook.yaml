@@ -7,14 +7,14 @@ spec:
   gitHub:
     gitServerCredentials:
       name: github-pat
-  applicationRepoOwner: ${{values.applicationRepoOwner}}
+  repositoryOwner: ${{values.applicationRepoOwner}}
   ownerType: user
-  applicationRepoName: ${{values.applicationRepoName}}
+  repositoryName: ${{values.applicationRepoName}}
   webhookURL: https://${{values.teamName}}-${{values.teamName}}-gitops.apps.${{values.cluster}}.v3socp.boo
   insecureSSL: false
   webhookSecret:
     name: webhook-secret
   events:
-    - push  
+    - push
   contentType: json
-  active: true  
+  active: true
