@@ -1,0 +1,10 @@
+apps:
+  ${{values.aapName}}:
+    namespaces:
+      - ${{values.teamName}}-${{values.environment}}
+    sourceRepos:
+      - https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}
+    tenantGitops:
+      repo: https://github.com/${{values.gitopsRepoOwner}}/${{values.gitopsRepoName}}.git
+      path: ${{values.cluster}}
+    helmChartRepo: ${{values.helmChartRepoUrl}}

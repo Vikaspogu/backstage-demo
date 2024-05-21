@@ -2,9 +2,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: pcf-to-ocp-onboarding
-  title: Onboarding template for PCF to OpenShift applications
-  description: scaffolder v1beta3 template to onboard an application into OpenShift cluster
+  name: pcf-to-ocp
+  title: Onboarding Template for PCF applications to OpenShift
+  description: Onboarding Template for PCF applications to OpenShift
   substitute:
     engineering:
       devops: 1

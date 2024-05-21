@@ -3,8 +3,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: application-onboarding
-  title: Application Onboarding template
-  description: scaffolder v1beta3 template to onboard an application into OpenShift cluster
+  title: Application Onboarding Template
+  description: Template to onboard an existing application into OpenShift cluster
   substitute:
     engineering:
       devops: 1
@@ -181,6 +181,9 @@ spec:
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          gitopsRepoOwner: ${{ (parameters.gitopsRepo | parseRepoUrl).owner }}
+          gitopsRepoName: ${{ (parameters.gitopsRepo | parseRepoUrl).repo }}
+          helmChartRepoUrl: ${{ parameters.helmChartsRepo }}
 
     - id: skeletonNamespaceExists
       action: fetch:template
@@ -200,6 +203,7 @@ spec:
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          helmChartRepoUrl: ${{ parameters.helmChartsRepo }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository

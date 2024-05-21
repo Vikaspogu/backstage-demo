@@ -1,7 +1,7 @@
 apiVersion: redhatcop.redhat.io/v1alpha1
 kind: GitWebhook
 metadata:
-  name: gitwebhook-${{values.teamName}}-
+  name: gitwebhook-${{values.teamName}}-${{values.applicationRepoName}}
   namespace: gitwebhook-operator
 spec:
   gitHub:
