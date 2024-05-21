@@ -2,7 +2,7 @@ apps:
   ${{values.appName}}:
     namespaces:
     {% for env in values.allEnvironments -%}
-      - {{ env }}
+      - ${{ env }}
     {% endfor -%}
     sourceRepos:
       - https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}
