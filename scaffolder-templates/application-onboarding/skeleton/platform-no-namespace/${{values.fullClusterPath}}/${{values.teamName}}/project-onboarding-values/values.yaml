@@ -1,2 +1,2 @@
 namespace: ${{values.teamName}}-gitops
-domain: ${{values.domain}}
+team: ${{values.teamName}}

@@ -11,10 +11,8 @@ spec:
   ownerType: user
   repositoryName: ${{values.applicationRepoName}}
   webhookURL: https://${{values.teamName}}-${{values.teamName}}-gitops.apps.${{values.cluster}}.v3socp.boo
-  insecureSSL: false
   webhookSecret:
     name: webhook-secret
   events:
     - push
-  contentType: json
   active: true
