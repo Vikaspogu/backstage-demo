@@ -1,7 +1,7 @@
 apps:
   ${{values.appName}}:
     namespaces:
-    {%- for env in {{values.allEnvironments}} -%}
+    {%- for env in ${{values.allEnvironments}} -%}
       - {{env}}
     {%- endfor %}
     sourceRepos:
