@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{values.appName}}-app
+  name: ${{values.appName}}-project-onboarding
   namespace: openshift-gitops
   labels:
     type: config
@@ -25,12 +25,6 @@ spec:
           value: ${{values.fullClusterPath}}/${{values.teamName}}/project-onboarding-values/values.yaml
   syncPolicy:
     automated: {}
-    retry:
-      backoff:
-        duration: 120s
-        factor: 3
-        maxDuration: 10m0s
-      limit: 10
     syncOptions:
       - SkipDryRunOnMissingResource=true
       - Validate=false
