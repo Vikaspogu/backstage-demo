@@ -20,9 +20,9 @@ spec:
         - name: CHART_PATH
           value: helm/charts/project-onboarding
         - name: VALUES_FOLDER
-          value: ${{values.fullClusterPath}}/${{values.teamName}}/project-onboarding-values/apps
+          value: ${{values.fullClusterPath}}/${{values.teamName}}-application/project-onboarding-values/apps
         - name: VALUES_FILE
-          value: ${{values.fullClusterPath}}/${{values.teamName}}/project-onboarding-values/values.yaml
+          value: ${{values.fullClusterPath}}/${{values.teamName}}-application/project-onboarding-values/values.yaml
   syncPolicy:
     automated: {}
     syncOptions:
