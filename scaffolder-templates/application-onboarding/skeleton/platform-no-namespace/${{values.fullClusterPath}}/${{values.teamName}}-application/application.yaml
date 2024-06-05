@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{values.appName}}-project-onboarding
+  name: ${{values.teamName}}-project-onboarding
   namespace: openshift-gitops
   labels:
-    type: config
+    type: application
 spec:
   destination:
     server: "https://kubernetes.default.svc"
