@@ -1,5 +1,5 @@
 apps:
-  ${{values.aapName}}:
+  ${{values.appName}}:
     namespaces:
       - ${{values.teamName}}-${{values.environment}}
     sourceRepos:
