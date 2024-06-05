@@ -1,10 +1,12 @@
 apps:
   ${{values.appName}}:
     namespaces:
-      - ${{values.teamName}}-${{values.environment}}
+    {% for env in values.allEnvironments -%}
+      - ${{values.teamName}}-${{ env }}
+    {% endfor -%}
     sourceRepos:
       - https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}
     tenantGitops:
       repo: https://github.com/${{values.gitopsRepoOwner}}/${{values.gitopsRepoName}}.git
-      path: ${{values.cluster}}
+      path: ${{values.cluster}}/${{values.teamName}}/${{values.appName}}
     helmChartRepo: ${{values.helmChartRepoUrl}}
