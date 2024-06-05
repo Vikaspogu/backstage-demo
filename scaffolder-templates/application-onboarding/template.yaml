@@ -202,6 +202,8 @@ spec:
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          gitopsRepoOwner: ${{ (parameters.gitopsRepo | parseRepoUrl).owner }}
+          gitopsRepoName: ${{ (parameters.gitopsRepo | parseRepoUrl).repo }}
           helmChartRepoUrl: ${{ parameters.helmChartsRepo }}
 
     - id: publishToPlatform
