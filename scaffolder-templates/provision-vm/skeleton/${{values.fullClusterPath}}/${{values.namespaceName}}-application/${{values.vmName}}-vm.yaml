@@ -41,7 +41,7 @@ spec:
       accessCredentials:
         - userPassword:
             propagationMethod:
-              configDrive: {} 
+              qemuGuestAgent: {}
             source:
               secret:
                 secretName: ${{values.vmName}}-secret
