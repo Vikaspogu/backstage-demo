@@ -28,7 +28,8 @@ spec:
       required:
         - osType
         - cluster
-        - teamName
+        - namespaceName
+        - vmName
       properties:
         osType:
           title: Select Operating System 
@@ -67,7 +68,7 @@ spec:
           title: Virtual Machine Name
           type: string
           description: Virtual machine name; no spaces are allowed
-          pattern: ^[a-z-]*$
+          pattern: ^[a-z-0-9]*$
           maxLength: 10
           ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         imageUrl:
