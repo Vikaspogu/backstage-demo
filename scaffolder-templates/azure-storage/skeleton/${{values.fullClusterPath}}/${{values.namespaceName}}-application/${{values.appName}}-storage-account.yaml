@@ -17,7 +17,7 @@ spec:
     {%- if values.storageAccountName %}
     storageAccountName: account${{values.storageAccountName}}
     {%- else %}
-    storageAccountName: account${{values.namespaceName}}${{values.appName}}
+    storageAccountName: account${{values.namespaceName|replace('-', '')}}${{values.appName|replace('-', '')}}
     {%- endif %}
 {%- if values.createNamespace %}
 ---
