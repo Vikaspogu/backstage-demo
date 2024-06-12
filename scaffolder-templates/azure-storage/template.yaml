@@ -65,25 +65,56 @@ spec:
         namespaceName:
           title: Namespace
           type: string
-          description: Virtual machine namespace; no spaces are allowed
+          description: Name of namespace/project your application is deployed in
         appName:
           title: Application Name
           type: string
           description: Name of the application consuming the storage account
           pattern: ^[a-z-0-9]*$
           maxLength: 10
-        resourceGroupName:
-          title: Provide a name for resource group
-          type: string
-          description: Name of the resource group in azure
-          pattern: ^[a-z-0-9]*$
-          maxLength: 10
-        storageAccountName:
-          title: Provide a name for storage account
-          type: string
-          description: Name of the storage account in azure
-          pattern: ^[a-z-0-9]*$
-          maxLength: 10
+        resourceGroup:
+          type: boolean
+          description: Do you want to provide a resource group name?
+          title: Do you want to provide a resource group name?
+          default: false
+        storageAccount:
+          description: Do you want to provide a storage account name?
+          title: Do you want to provide a storage account name?
+          type: boolean
+          default: false
+      dependencies:
+        resourceGroup:
+          allOf:
+            - if:
+                properties:
+                  resourceGroup:
+                    const: true
+              then:
+                properties:
+                  resourceGroupName:
+                    title: Provide a name for resource group
+                    type: string
+                    description: Name of the resource group in azure
+                    pattern: ^[a-z-0-9]*$
+                    maxLength: 10
+                required:
+                  - resourceGroupName
+        storageAccount:
+          allOf:
+            - if:
+                properties:
+                  storageAccount:
+                    const: true
+              then:
+                properties:
+                  storageAccountName:
+                    title: Provide a name for storage account
+                    type: string
+                    description: Name of the storage account in azure
+                    pattern: ^[a-z0-9]*$
+                    maxLength: 10
+                required:
+                  - storageAccountName
   steps:
     - id: fetchSkeleton
       action: fetch:template
