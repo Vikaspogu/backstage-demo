@@ -30,8 +30,6 @@ spec:
         - location
         - cluster
         - namespaceName
-        - resourceGroupName
-        - storageAccountName
       properties:
         location:
           title: Select Location for the Storage Account
