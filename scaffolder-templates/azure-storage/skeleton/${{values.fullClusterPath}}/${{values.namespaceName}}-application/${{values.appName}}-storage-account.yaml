@@ -9,8 +9,8 @@ spec:
     name: storageazure-composition
   parameters:
     location: ${{values.location}}
-    resourceGroupName: ${{values.resourceGroupName}}
-    storageAccountName: ${{values.storageAccountName}}
+    resourceGroupName: rg-${{values.appName}}-${{resourceGroupName}}
+    storageAccountName: account${{appName}}${{values.storageAccountName}}
 {%- if values.createNamespace %}
 ---
 apiVersion: v1
