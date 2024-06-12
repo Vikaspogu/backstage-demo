@@ -1,0 +1,22 @@
+---
+apiVersion: crossplane.jonashackt.io/v1alpha1
+kind: StorageAzure
+metadata:
+  namespace: ${{values.namespaceName}}
+  name: ${{values.appName}}-storage-account
+spec:
+  compositionRef:
+    name: storageazure-composition
+  parameters:
+    location: ${{values.location}}
+    resourceGroupName: ${{values.resourceGroupName}}
+    storageAccountName: ${{values.storageAccountName}}
+{%- if values.createNamespace %}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${{values.namespaceName}}
+  labels:
+    argocd.argoproj.io/managed-by: openshift-gitops
+{%- endif %}
