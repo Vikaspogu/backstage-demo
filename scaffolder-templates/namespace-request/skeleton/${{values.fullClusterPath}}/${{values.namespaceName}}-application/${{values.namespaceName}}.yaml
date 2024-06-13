@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${{values.namespaceName}}
+  labels:
+    cluster: ${{values.cluster}}
+    team: ${{values.teamName}}
+    argocd.argoproj.io/managed-by: openshift-gitops
