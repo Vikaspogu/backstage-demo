@@ -94,7 +94,7 @@ spec:
         url: ./skeleton/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
+          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
           vmName: ${{parameters.vmName}}
           applicationType: resources
           namespaceName: ${{parameters.namespaceName}}
