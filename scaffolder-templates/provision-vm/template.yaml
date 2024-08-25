@@ -30,6 +30,7 @@ spec:
         - cluster
         - namespaceName
         - vmName
+        - username
       properties:
         osType:
           title: Select Operating System 
@@ -69,7 +70,7 @@ spec:
           type: string
           description: Virtual machine name; no spaces are allowed
           pattern: ^[a-z-0-9]*$
-          maxLength: 10
+          maxLength: 25
           ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         imageUrl:
           title: Qcow2 Url
@@ -79,7 +80,7 @@ spec:
         username:
           title: Username
           type: string
-          description: Login username for VM
+          description: Login username for VM 
         vaultPasswordKey:
           title: Vault Key
           type: string
