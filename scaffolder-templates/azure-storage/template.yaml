@@ -121,7 +121,7 @@ spec:
         url: ./skeleton/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
+          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
           applicationType: resources
           namespaceName: ${{parameters.namespaceName}}
           createNamespace: ${{parameters.createNamespace}}

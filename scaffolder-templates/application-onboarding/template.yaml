@@ -172,7 +172,7 @@ spec:
         url: ./skeleton/platform-no-namespace/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
+          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
           allEnvironments: ${{parameters.environments}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
@@ -193,7 +193,7 @@ spec:
         url: ./skeleton/platform-namespace-exists/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: kustomize/cluster-overlays/${{parameters.cluster}}
+          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
           allEnvironments: ${{parameters.environments}}
           environment: ${{each.value}}
           teamName: ${{parameters.teamName}}
@@ -237,7 +237,7 @@ spec:
       name: Cleanup Platform Templates
       input:
         files:
-          - kustomize/cluster-overlays/${{parameters.cluster}}
+          - clusters/${{parameters.cluster}}/devhub-automation-iac
 
     - id: fetchBaseTenantTemplates
       name: Fetch base templates for tenant repo
