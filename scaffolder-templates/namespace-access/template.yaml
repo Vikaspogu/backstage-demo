@@ -72,7 +72,7 @@ spec:
         url: ./skeleton/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
+          fullClusterPath: clusters/${{parameters.cluster}}
           applicationType: resources
           namespace: ${{parameters.namespaceName}}
           access: ${{ parameters.access }}
@@ -82,7 +82,7 @@ spec:
       name: Create a pull request to platform repository
       action: publish:github:pull-request
       input:
-        repoUrl: github.com?owner=vikaspogu&repo=openshift-multicluster
+        repoUrl: github.com?owner=devhub-showcase&repo=tenants-iac-gitops
         branchName: rbac-access/${{parameters.vmName}}
         title: Access request to namespace - ${{parameters.namespace}}
         update: true
@@ -98,7 +98,7 @@ spec:
       name: Add labels to PR to platform repository
       action: github:issues:label
       input:
-        repoUrl: github.com?owner=vikaspogu&repo=openshift-multicluster
+        repoUrl: github.com?owner=devhub-showcase&repo=tenants-iac-gitops
         number: ${{ steps.publishToPlatform.output.pullRequestNumber }}
         labels:
           - rbac

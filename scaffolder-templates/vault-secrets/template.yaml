@@ -74,7 +74,7 @@ spec:
         url: ./skeleton/
         values:
           cluster: ${{parameters.cluster}}
-          fullClusterPath: clusters/${{parameters.cluster}}/devhub-automation-iac
+          fullClusterPath: clusters/${{parameters.cluster}}
           applicationType: resources
           namespaceName: ${{parameters.namespaceName}}
           teamName: ${{ parameters.teamName }}
@@ -85,7 +85,7 @@ spec:
       name: Create a pull request to platform repository
       action: publish:github:pull-request
       input:
-        repoUrl: github.com?owner=vikaspogu&repo=openshift-multicluster
+        repoUrl: github.com?owner=devhub-showcase&repo=tenants-iac-gitops
         branchName: vault-secrets/${{parameters.teamName}}
         title: Secret Request - ${{parameters.teamName}}
         update: true
@@ -101,7 +101,7 @@ spec:
       name: Add labels to PR to platform repository
       action: github:issues:label
       input:
-        repoUrl: github.com?owner=vikaspogu&repo=openshift-multicluster
+        repoUrl: github.com?owner=devhub-showcase&repo=tenants-iac-gitops
         number: ${{ steps.publishToPlatform.output.pullRequestNumber }}
         labels:
           - vault-secrets
