@@ -17,8 +17,6 @@ spec:
     plugin:
       name: helm-multivalues-plugin
       env:
-        - name: CHARTS_REPO_URL
-          value: ${{values.helmChartRepoUrl}}
         - name: CHART_PATH
           value: helm/charts/project-onboarding
         - name: VALUES_FOLDER
