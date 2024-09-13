@@ -13,9 +13,7 @@ metadata:
   annotations:
     argocd/app-selector: "${{values.teamName}}-gitops=${{values.appName}}"
     argocd/app-namespace: ${{values.teamName}}-gitops
-    {%- if values.ci == "../../scaffolder-skeletons/tekton-skeleton/" %}
-    tektonci/build-namespace: ${{ values.teamName }}-gitops
-    {%- endif %}
+    janus-idp.io/tekton: ${{ values.appName }}
     backstage.io/kubernetes-id: ${{ values.appName }}
     backstage.io/kubernetes-label-selector: 'app.kubernetes.io/instance=${{values.appName}}'
 spec:
