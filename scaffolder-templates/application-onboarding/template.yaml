@@ -248,7 +248,9 @@ spec:
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
-
+          gitopsRepoOwner: ${{ (parameters.gitopsRepo | parseRepoUrl).owner }}
+          gitopsRepoName: ${{ (parameters.gitopsRepo | parseRepoUrl).repo }}
+          
     - id: publishToTenant
       name: Create a pull request to tenant repository
       action: publish:github:pull-request
