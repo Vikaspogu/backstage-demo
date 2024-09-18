@@ -48,6 +48,13 @@ spec:
           title: Namespace
           type: string
           description: Name of namespace you need access to
+        teamName:
+          title: Name of your team
+          type: string
+          description: Team name your application belongs to; no spaces are allowed
+          pattern: ^[a-z-]*$
+          maxLength: 10
+          ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         access:
           title: Select type of access
           type: string
@@ -77,6 +84,7 @@ spec:
           namespace: ${{parameters.namespace}}
           access: ${{ parameters.access }}
           username: ${{ parameters.username }}
+          teamName: ${{ parameters.teamName }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository
