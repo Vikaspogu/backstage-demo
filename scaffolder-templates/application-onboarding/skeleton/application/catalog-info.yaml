@@ -16,6 +16,7 @@ metadata:
     janus-idp.io/tekton: ${{ values.appName }}
     backstage.io/kubernetes-id: ${{ values.appName }}
     backstage.io/kubernetes-label-selector: 'app.kubernetes.io/instance=${{values.appName}}'
+    sonarqube.org/project-key: ci-pipeline-ref-${{ values.appName }}
 spec:
   type: ${{ values.applicationType }}
   lifecycle: production
