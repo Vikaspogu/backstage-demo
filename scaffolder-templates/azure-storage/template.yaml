@@ -60,6 +60,13 @@ spec:
           type: boolean
           description: Do you want to create a new Namespace/Project?
           default: false
+        teamName:
+          title: Name of your team
+          type: string
+          description: Team name your application belongs to; no spaces are allowed
+          pattern: ^[a-z-]*$
+          maxLength: 10
+          ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         namespaceName:
           title: Namespace
           type: string
@@ -129,6 +136,7 @@ spec:
           resourceGroupName: ${{ parameters.resourceGroupName }}
           storageAccountName: ${{ parameters.storageAccountName }}
           appName: ${{ parameters.appName }}
+          teamName: ${{ parameters.teamName }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository
