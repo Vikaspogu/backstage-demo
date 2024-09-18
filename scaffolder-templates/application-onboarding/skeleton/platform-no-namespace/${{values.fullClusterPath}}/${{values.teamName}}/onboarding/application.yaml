@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{values.teamName}}-project-onboarding
+  name: ${{values.teamName}}-onboarding
   namespace: openshift-gitops
   labels:
     type: application
@@ -20,9 +20,9 @@ spec:
         - name: CHART_PATH
           value: helm/charts/project-onboarding
         - name: VALUES_FOLDER
-          value: ${{values.fullClusterPath}}/${{values.teamName}}-application/project-onboarding-values/apps
+          value: ${{values.fullClusterPath}}/${{values.teamName}}/onboarding/project-onboarding-chart-values/apps
         - name: VALUES_FILE
-          value: ${{values.fullClusterPath}}/${{values.teamName}}-application/project-onboarding-values/values.yaml
+          value: ${{values.fullClusterPath}}/${{values.teamName}}/onboarding/project-onboarding-chart-values/values.yaml
   syncPolicy:
     automated: {}
     syncOptions:
