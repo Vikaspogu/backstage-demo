@@ -69,7 +69,7 @@ spec:
           type: string
           description: Name of the application consuming the storage account
           pattern: ^[a-z-0-9]*$
-          maxLength: 10
+          maxLength: 25
         resourceGroup:
           type: boolean
           description: Do you want to provide a resource group name?
