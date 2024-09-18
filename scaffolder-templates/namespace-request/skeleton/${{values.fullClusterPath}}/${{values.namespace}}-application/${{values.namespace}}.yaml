@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ${{values.namespaceName}}
+  name: ${{values.namespace}}
   labels:
     cluster: ${{values.cluster}}
     team: ${{values.teamName}}

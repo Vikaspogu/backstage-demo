@@ -74,7 +74,7 @@ spec:
           cluster: ${{parameters.cluster}}
           fullClusterPath: clusters/${{parameters.cluster}}
           applicationType: resources
-          namespace: ${{parameters.namespaceName}}
+          namespace: ${{parameters.namespace}}
           access: ${{ parameters.access }}
           username: ${{ parameters.username }}
 
