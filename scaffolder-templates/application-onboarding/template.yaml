@@ -42,7 +42,7 @@ spec:
             type: string
             enum:
               - dev
-              - test
+              - qa
               - prod
             title: Environment
             ui:
@@ -237,7 +237,7 @@ spec:
       action: fetch:template
       each: ${{parameters.environments}}
       input:
-        url: ./skeleton/tenant-gitops/
+        url: ./skeleton/tenant-cicd/
         values:
           cluster: ${{parameters.cluster}}
           allEnvironments: ${{parameters.environments}}
