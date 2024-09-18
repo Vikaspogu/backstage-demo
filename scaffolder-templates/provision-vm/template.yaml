@@ -65,6 +65,13 @@ spec:
           title: Namespace
           type: string
           description: Virtual machine namespace; no spaces are allowed
+        teamName:
+          title: Name of your team
+          type: string
+          description: Team name your application belongs to; no spaces are allowed
+          pattern: ^[a-z-]*$
+          maxLength: 10
+          ui:help: "Hint: Lowercase and only hyphens(-) allowed"
         vmName:
           title: Virtual Machine Name
           type: string
@@ -104,6 +111,7 @@ spec:
           imageUrl: ${{ parameters.imageUrl }}
           username: ${{ parameters.username }}
           vaultPasswordKey: ${{ parameters.vaultPasswordKey }}
+          teamName: ${{ parameters.teamName }}
 
     - id: publishToPlatform
       name: Create a pull request to platform repository
