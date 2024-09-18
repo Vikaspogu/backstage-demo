@@ -18,7 +18,7 @@ metadata:
       url: https://backstage.io/docs/features/software-templates
       icon: docs
     - title: Source
-      url: https://github.com/Vikaspogu/software-templates/blob/main/scaffolder-templates/provision-vm/template.yaml
+      url: https://github.com/devhub-showcase/software-templates/blob/main/scaffolder-templates/provision-vm/template.yaml
       icon: github
 spec:
   owner: group:ops

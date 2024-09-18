@@ -19,7 +19,7 @@ metadata:
       url: https://backstage.io/docs/features/software-templates
       icon: docs
     - title: Source
-      url: https://github.com/Vikaspogu/software-templates/blob/main/scaffolder-templates/namespace-access/template.yaml
+      url: https://github.com/devhub-showcase/software-templates/blob/main/scaffolder-templates/namespace-access/template.yaml
       icon: github
 spec:
   owner: group:ops
@@ -83,7 +83,7 @@ spec:
       action: publish:github:pull-request
       input:
         repoUrl: github.com?owner=devhub-showcase&repo=tenants-iac-gitops
-        branchName: rbac-access/${{parameters.vmName}}
+        branchName: rbac-access/${{parameters.namespace}}
         title: Access request to namespace - ${{parameters.namespace}}
         update: true
         description: |
