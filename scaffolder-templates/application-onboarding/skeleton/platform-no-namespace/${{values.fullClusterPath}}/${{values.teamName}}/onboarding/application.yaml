@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{values.teamName}}-cicd-onboarding
+  name: ${{values.teamName}}-onboarding-chart
   namespace: openshift-gitops
   labels:
     type: application
