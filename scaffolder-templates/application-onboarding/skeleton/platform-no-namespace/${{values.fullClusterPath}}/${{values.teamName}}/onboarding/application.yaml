@@ -24,7 +24,9 @@ spec:
         - name: VALUES_FILE
           value: ${{values.fullClusterPath}}/${{values.teamName}}/onboarding/team-onboarding/values.yaml
   syncPolicy:
-    automated: {}
+    automated:
+      selfHeal: true
+      prune: true
     syncOptions:
       - SkipDryRunOnMissingResource=true
       - Validate=false
