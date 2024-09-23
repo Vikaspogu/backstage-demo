@@ -17,6 +17,10 @@ metadata:
     backstage.io/kubernetes-id: ${{ values.appName }}
     backstage.io/kubernetes-label-selector: 'app.kubernetes.io/instance=${{values.appName}}'
     sonarqube.org/project-key: ci-pipeline-ref-${{ values.appName }}
+  links:
+    - url: https://devspaces.apps.dev-acm.v3socp.boo/#https://github.com/${{values.applicationRepoOwner}}/${{values.applicationRepoName}}?che-editor=che-incubator/che-code/insiders&devfilePath=.devfile-vscode.yaml
+      title: CodeReady Workspaces (VS Code)
+      icon: web
 spec:
   type: ${{ values.applicationType }}
   lifecycle: production
