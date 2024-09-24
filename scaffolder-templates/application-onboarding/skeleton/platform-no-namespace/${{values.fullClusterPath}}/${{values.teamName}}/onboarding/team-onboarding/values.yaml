@@ -1,2 +1,2 @@
-namespace: ${{values.teamName}}-gitops
+namespace: ${{values.teamName}}-cicd
 team: ${{values.teamName}}

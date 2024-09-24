@@ -1,15 +1,15 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: "${{values.teamName}}-gitops-cluster-reader"
+  name: "${{values.teamName}}-cicd-cluster-reader"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-reader
 subjects:
   - kind: ServiceAccount
-    name: ${{values.teamName}}-gitops-argocd-application-controller
-    namespace: ${{values.teamName}}-gitops
+    name: ${{values.teamName}}-cicd-argocd-application-controller
+    namespace: ${{values.teamName}}-cicd
   - kind: ServiceAccount
-    name: ${{values.teamName}}-gitops-argocd-server
-    namespace: ${{values.teamName}}-gitops
+    name: ${{values.teamName}}-cicd-argocd-server
+    namespace: ${{values.teamName}}-cicd
