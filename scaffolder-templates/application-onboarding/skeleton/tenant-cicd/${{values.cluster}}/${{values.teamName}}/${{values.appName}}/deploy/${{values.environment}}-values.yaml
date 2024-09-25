@@ -1,4 +1,4 @@
 image:
-  repository: docker.io/vikaspogu/${{values.applicationRepoName}}
+  repository: image-registry.openshift-image-registry.svc:5000/${{values.teamName}}-${{values.environment}}/${{values.applicationRepoName}}
   pullPolicy: IfNotPresent
   tag: ""
