@@ -7,19 +7,37 @@ FROM registry.access.redhat.com/ubi8/openjdk-17:1.17
 COPY --chown=185 target/*.jar /deployments/${{values.appName}}.jar
 ENV JAVA_APP_JAR="/deployments/${{values.appName}}.jar"
 {%- elif values.runTimes == "nodejs" -%}
-# More possible license content here
-FROM node:${{values.runTimeVersion}}
-#create app directory
-WORKDIR /usr/src/app
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-# Bundle app source
+# Stage 1 - Install dependencies
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:latest AS deps
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Stage 2 - Build the source code
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:latest AS builder
+
 COPY . .
-EXPOSE 8080
-CMD [ "node", "server.js" ]
+COPY --from=deps /opt/app-root/src/node_modules ./node_modules
+
+USER root
+RUN npm run build
+
+# Stage 3 - Production image, copy all the files and start NodeJS
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:latest AS runner
+
+COPY --from=deps --chown=1001:1001 /opt/app-root/src .
+COPY --from=builder --chown=1001:1001 /opt/app-root/src/dist ./dist
+
+ENV NODE_ENV production
+
+# Switch to nodejs user
+USER 1001
+
+# Install production dependencies
+RUN npm ci
+
+ENV PORT ${{ values.port }}
+EXPOSE ${{ values.port }}
+
+CMD ["npm", "run", "start"]
 {% endif %}
