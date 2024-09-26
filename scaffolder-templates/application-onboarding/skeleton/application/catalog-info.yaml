@@ -13,6 +13,7 @@ metadata:
   annotations:
     argocd/app-selector: "${{values.teamName}}-cicd=${{values.appName}}"
     argocd/app-namespace: ${{values.teamName}}-cicd
+    argocd/instance-name: ${{values.teamName}}-cicd
     janus-idp.io/tekton: ${{ values.appName }}
     backstage.io/kubernetes-id: ${{ values.appName }}
     backstage.io/kubernetes-label-selector: 'app.kubernetes.io/instance=${{values.appName}}'
