@@ -1,4 +1,4 @@
 image:
-  repository: image-registry.openshift-image-registry.svc:5000/${{values.teamName}}-${{values.environment}}/${{values.applicationRepoName}}
+  repository: quay.io/rhn_gps_vpogu/${{values.applicationRepoName}}
   pullPolicy: IfNotPresent
   tag: ""
