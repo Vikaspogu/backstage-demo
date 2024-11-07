@@ -43,10 +43,10 @@ spec:
             value: $(params.repo_name)
       - name: s2i-build
         taskRef:
-          {%- if values.runTimes == "java" -%}
+          {%- if values.runTimes == "java" %}
           name: s2i-java-1-16-0
           kind: ClusterTask
-          {%- elif values.runTimes == "nodejs" -%}
+          {%- elif values.runTimes == "nodejs" %}
           name: s2i-nodejs-1-16-0
           kind: ClusterTask
           {% endif %}
