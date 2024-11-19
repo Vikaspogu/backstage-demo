@@ -29,8 +29,14 @@ spec:
     tasks:
       - name: fetch-repository
         taskRef:
-          name: git-clone
-          kind: ClusterTask
+          resolver: cluster
+          params:
+            - name: name
+              value: git-clone
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         workspaces:
           - name: output
             workspace: source
@@ -45,13 +51,18 @@ spec:
             value: $(params.repo_name)
       - name: s2i-build
         taskRef:
-          {%- if values.runTimes == "java" %}
-          name: s2i-java-1-16-0
-          kind: ClusterTask
-          {%- elif values.runTimes == "nodejs" %}
-          name: s2i-nodejs-1-16-0
-          kind: ClusterTask
-          {% endif %}
+          resolver: cluster
+          params:
+            - name: name
+            {%- if values.runTimes == "java" %}
+              value: s2i-java-1-16-0
+            {%- elif values.runTimes == "nodejs" %}
+              value: s2i-nodejs-1-16-0
+            {% endif %}
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         runAfter:
           - fetch-repository
         params:
@@ -66,8 +77,14 @@ spec:
             workspace: dockerconfig
       - name: helm-cleanup
         taskRef:
-          name: helm-cleanup
-          kind: ClusterTask
+          resolver: cluster
+          params:
+            - name: name
+              value: helm-cleanup
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         runAfter:
           - s2i-build
         params:

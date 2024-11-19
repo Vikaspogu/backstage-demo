@@ -34,8 +34,14 @@ spec:
     tasks:
       - name: fetch-repository
         taskRef:
-          name: git-clone
-          kind: ClusterTask
+          resolver: cluster
+          params:
+            - name: name
+              value: git-clone
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         workspaces:
           - name: output
             workspace: source
@@ -50,13 +56,18 @@ spec:
             value: $(params.repo_name)
       - name: s2i-build
         taskRef:
-          {%- if values.runTimes == "java" -%}
-          name: s2i-java-1-16-0
-          kind: ClusterTask
-          {%- elif values.runTimes == "nodejs" -%}
-          name: s2i-nodejs-1-16-0
-          kind: ClusterTask
-          {% endif %}
+          resolver: cluster
+          params:
+            - name: name
+            {%- if values.runTimes == "java" %}
+              value: s2i-java-1-16-0
+            {%- elif values.runTimes == "nodejs" %}
+              value: s2i-nodejs-1-16-0
+            {% endif %}
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         runAfter:
           - fetch-repository
         params:
@@ -71,8 +82,14 @@ spec:
             workspace: source
       - name: fetch-helm-chart-repository
         taskRef:
-          name: git-clone
-          kind: ClusterTask
+          resolver: cluster
+          params:
+            - name: name
+              value: git-clone
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         runAfter:
           - s2i-build
         workspaces:
@@ -91,8 +108,14 @@ spec:
             value: main
       - name: install-helm-chart
         taskRef:
-          name: helm-upgrade-from-source
-          kind: ClusterTask
+          resolver: cluster
+          params:
+            - name: name
+              value: helm-upgrade-from-source
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
         runAfter:
           - fetch-helm-chart-repository
         workspaces:
