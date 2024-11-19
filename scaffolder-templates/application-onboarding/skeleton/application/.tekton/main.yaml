@@ -80,7 +80,7 @@ spec:
           resolver: cluster
           params:
             - name: name
-              value: helm-cleanup
+              value: helm-uninstall
             - name: namespace
               value: openshift-pipelines
             - name: kind
