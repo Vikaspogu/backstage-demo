@@ -17,6 +17,8 @@ spec:
       value: "{{ repo_name }}"
     - name: source_branch
       value: "{{ source_branch }}"
+    - name: pull_request
+      value: "{{ pull_request_number }}"
     - name: namespace
       value: ${{values.teamName}}-dev
   pipelineSpec:
@@ -100,11 +102,11 @@ spec:
           - name: release_namespace
             value: $(params.namespace)
           - name: release_name
-            value: $(params.repo_name)-$(params.source_branch)
+            value: $(params.repo_name)-pull-request-$(params.pull_request)
           - name: charts_dir
             value: "$(workspaces.source.path)/shared-helm-charts/charts/deploy"
           - name: overwrite_values
-            value: image.repository=image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.repo_name),image.tag=$(params.source_branch)
+            value: image.repository=image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.repo_name),image.tag=$(params.pull_request)
   workspaces:
   - name: source
     volumeClaimTemplate:
