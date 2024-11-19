@@ -304,6 +304,7 @@ spec:
           namespaceExists: ${{parameters.namespaceExists}}
           applicationRepoOwner: ${{ (parameters.applicationRepo | parseRepoUrl).owner }}
           applicationRepoName: ${{ (parameters.applicationRepo | parseRepoUrl).repo }}
+          helmChartRepoUrl: ${{ parameters.helmChartsRepo }}
 
     - id: publishToApplication
       name: Create a pull request to application repository
