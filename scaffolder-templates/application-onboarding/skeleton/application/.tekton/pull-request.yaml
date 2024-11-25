@@ -49,11 +49,11 @@ spec:
           - name: basic-auth
             workspace: basic-auth
         params:
-          - name: url
+          - name: URL
             value: $(params.repo_url)
-          - name: revision
+          - name: REVISION
             value: $(params.revision)
-          - name: subdirectory
+          - name: SUBDIRECTORY
             value: $(params.repo_name)
       - name: s2i-build
         taskRef:
@@ -69,17 +69,17 @@ spec:
           - fetch-repository
         params:
           - name: VERSION
-            {%- if values.runTimes == "java" -%}
-            {%- if values.runTimeVersion == "openjdk-11" -%}
+            {%- if values.runTimes == "java" %}
+            {%- if values.runTimeVersion == "openjdk-11" %}
             value: openjdk-11-ubi8
-            {%- elif values.runTimeVersion == "openjdk-17" -%}
+            {%- elif values.runTimeVersion == "openjdk-17" %}
             value: openjdk-17-ubi8
             {% endif %}
-            {%- elif values.runTimes == "nodejs" -%}
+            {%- elif values.runTimes == "nodejs" %}
             value: 18-minimal-ubi9
             {% endif %}
           - name: RUNTIME
-            {%- if values.runTimes == "java" -%}
+            {%- if values.runTimes == "java" %}
             value: java
             {%- elif values.runTimes == "nodejs" %}
             value: nodejs
@@ -133,11 +133,11 @@ spec:
         params:
           - name: PARAM_DELETE_EXISTING
             value: "false"
-          - name: subdirectory
+          - name: SUBDIRECTORY
             value: "shared-helm-charts"
-          - name: url
+          - name: URL
             value: ${{values.helmChartRepoUrl}}
-          - name: revision
+          - name: REVISION
             value: main
       - name: install-helm-chart
         taskRef:
