@@ -31,6 +31,7 @@ spec:
     workspaces:
       - name: source
       - name: basic-auth
+      - name: rox-api-token-auth
     tasks:
       - name: fetch-repository
         taskRef:
@@ -59,11 +60,7 @@ spec:
           resolver: cluster
           params:
             - name: name
-            {%- if values.runTimes == "java" %}
-              value: s2i-java-1-16-0
-            {%- elif values.runTimes == "nodejs" %}
-              value: s2i-nodejs-1-16-0
-            {% endif %}
+              value: s2i-1-16-0
             - name: namespace
               value: openshift-pipelines
             - name: kind
@@ -71,15 +68,51 @@ spec:
         runAfter:
           - fetch-repository
         params:
-        - name: PATH_CONTEXT
-          value:  $(workspaces.source.path)/$(params.repo_name)
-        - name: IMAGE
-          value: "image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.repo_name):$(params.source_branch)"
-        - name: TLSVERIFY
-          value: "false"
+          - name: VERSION
+            {%- if values.runTimes == "java" -%}
+            {%- if values.runTimeVersion == "openjdk-11" -%}
+            value: openjdk-11-ubi8
+            {%- elif values.runTimeVersion == "openjdk-17" -%}
+            value: openjdk-17-ubi8
+            {% endif %}
+            {%- elif values.runTimes == "nodejs" -%}
+            value: 18-minimal-ubi9
+            {% endif %}
+          - name: RUNTIME
+            {%- if values.runTimes == "java" -%}
+            value: java
+            {%- elif values.runTimes == "nodejs" %}
+            value: nodejs
+            {% endif %}
+          - name: PATH_CONTEXT
+            value:  $(workspaces.source.path)/$(params.repo_name)
+          - name: IMAGE
+            value: "image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.repo_name):$(params.pull_request)"
+          - name: TLSVERIFY
+            value: "false"
         workspaces:
           - name: source
             workspace: source
+      - name: scan-image
+        taskRef:
+          resolver: cluster
+          params:
+            - name: name
+              value: rhacs-image-scan
+            - name: namespace
+              value: openshift-pipelines
+            - name: kind
+              value: task
+        workspaces:
+          - name: rox-api-token-auth
+            workspace: rox-api-token-auth
+        params:
+        - name: image
+          value: "image-registry.openshift-image-registry.svc:5000/$(params.namespace)/$(params.repo_name):$(params.pull_request)"
+        - name: insecure-skip-tls-verify
+          value: "true" # stackrox to OCP image registry x509 fail...
+        runAfter:
+          - s2i-build
       - name: fetch-helm-chart-repository
         taskRef:
           resolver: cluster
@@ -91,7 +124,7 @@ spec:
             - name: kind
               value: task
         runAfter:
-          - s2i-build
+          - scan-image
         workspaces:
           - name: output
             workspace: source
@@ -144,3 +177,6 @@ spec:
   - name: basic-auth
     secret:
       secretName: "{{ git_auth_secret }}"
+  - name: rox-api-token-auth
+    secret:
+      secretName: pipeline-build-secret

@@ -54,11 +54,7 @@ spec:
           resolver: cluster
           params:
             - name: name
-            {%- if values.runTimes == "java" %}
-              value: s2i-java-1-16-0
-            {%- elif values.runTimes == "nodejs" %}
-              value: s2i-nodejs-1-16-0
-            {% endif %}
+              value: s2i-1-16-0
             - name: namespace
               value: openshift-pipelines
             - name: kind
@@ -66,6 +62,22 @@ spec:
         runAfter:
           - fetch-repository
         params:
+        - name: VERSION
+          {%- if values.runTimes == "java" -%}
+          {%- if values.runTimeVersion == "openjdk-11" -%}
+          value: openjdk-11-ubi8
+          {%- elif values.runTimeVersion == "openjdk-17" -%}
+          value: openjdk-17-ubi8
+          {% endif %}
+          {%- elif values.runTimes == "nodejs" -%}
+          value: 18-minimal-ubi9
+          {% endif %}
+        - name: RUNTIME
+          {%- if values.runTimes == "java" -%}
+          value: java
+          {%- elif values.runTimes == "nodejs" %}
+          value: nodejs
+          {% endif %}
         - name: PATH_CONTEXT
           value:  $(workspaces.source.path)/$(params.repo_name)
         - name: IMAGE
